@@ -66,3 +66,8 @@ video {
 h3{
     padding: 1 rem 0;
 }
+
+.btn-rounded {
+  border-radius: 50px; /* Ajusta el valor según tu preferencia */
+  padding: 10px 20px; /* Ajusta el valor según tu preferencia */
+}
