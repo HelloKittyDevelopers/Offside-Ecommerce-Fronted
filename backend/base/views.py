@@ -27,13 +27,18 @@ def getRoutes(request):
 @api_view(['GET'])
 def getProducts(request):
     return Response(products)
+
 @api_view(['GET'])
-def getProduct(request,pk):
-    product=None
+def getProduct(request, pk):
+    product = None
     for i in products:
-        ##básicamente un for each de java..
+        # Encontrar el producto con el ID especificado
         if i['_id'] == pk:
-            product= i
+            product = i
             break
 
-    return Response(products)
+    # Verificar si se encontró el producto
+    if product is not None:
+        return Response(product)
+    else:
+        return Response({'detail': 'Product not found'}, status=404)
