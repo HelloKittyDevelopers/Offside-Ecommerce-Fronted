@@ -8,7 +8,6 @@ class ProductService {
     async getAll() {
       try {
           const response = await axios.get(this.baseUrl);
-          console.log('ProductService getAll response:', response.data);
           return response.data;
       } catch (error) {
           console.error('Error in ProductService getAll:', error);

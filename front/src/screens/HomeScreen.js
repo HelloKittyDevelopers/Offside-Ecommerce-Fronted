@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Row, Col } from 'react-bootstrap';
 import Product from '../components/Product';
+import ProductService from '../service/ProductService';
 import Vid from '../components/Vid';
 import axios from 'axios';
 
@@ -10,11 +11,9 @@ function HomeScreen() {
     useEffect(() => {
         // Función para obtener productos desde la API
         async function fetchProducts() {
-            console.log() 
             try {
-                const { data } = await axios.get('/home/products/');
-                 // Petición GET a la API
-                setProducts(data);  // Actualizamos el estado con los datos obtenidos
+                const data = await ProductService.getAll();
+                setProducts(data);
             } catch (error) {
                 console.error("Error fetching products:", error);  // Manejo de errores
             }

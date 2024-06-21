@@ -15,7 +15,7 @@ function ProductScreen() {
         async function fetchProduct() {
             try {
                 const productData = await ProductService.getAll();
-                console.log('Fetching product with id:', id); // Log the id
+                console.log(productData); // product data
                 const { data } = await axios.get(`/api/products/${id}/`); // GET request to API
                 setProduct(data); // Update state with fetched data
                 console.log('Fetched product data:', data); // Log the fetched data
