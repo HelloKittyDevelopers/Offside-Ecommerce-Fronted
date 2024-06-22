@@ -1,31 +1,48 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { Row, Col, Image, ListGroup, Button, Card, Form } from 'react-bootstrap';
+import { useDispatch, useSelector } from 'react-redux';
+import ProductService from '../service/ProductService';
 import Rating from '../components/Rating';
-import axios from 'axios';
+import { listProductReviews } from '../actions/reviewActions';
 
 function ProductScreen() {
-    const { id_product } = useParams(); // Ensure this gets the correct id from the URL
-    const [product, setProduct] = useState({}); // Initialize product as an empty object
-    const [size, setSize] = useState(''); // State for handling selected size
+    const { id_product } = useParams();
+    const dispatch = useDispatch();
+
+    const [product, setProduct] = useState({});
+    const [size, setSize] = useState(''); // Inicializar el estado size
+    const [averageRating, setAverageRating] = useState(0);
+    const reviewList = useSelector((state) => state.reviewList);
+    const { reviews, loading: loadingReviews, error: errorReviews } = reviewList;
 
     useEffect(() => {
-        // Function to fetch product data from API
-        async function fetchProduct() {
+        const fetchProduct = async () => {
             try {
-                const { data } = await axios.get(`/home/products/${id_product}/`); // GET request to API
-                setProduct(data); // Update state with fetched data
-                console.log('Fetched product data:', data); // Log the fetched data
+                const data = await ProductService.getProductById(id_product);
+                setProduct(data);
             } catch (error) {
-                console.error('Error fetching product:', error); // Error handling
+                console.error('Error fetching product:', error);
             }
-        }
-        if (id_product) { // Ensure id is defined before calling the API
-            fetchProduct(); // Call the function to fetch product data
+        };
+
+        const fetchAverageRating = async () => {
+            try {
+                const data = await ProductService.getProductReviewAverage(id_product);
+                setAverageRating(data.average_rating || 0);
+            } catch (error) {
+                console.error('Error fetching average rating:', error);
+            }
+        };
+
+        if (id_product) {
+            fetchProduct();
+            fetchAverageRating();
+            dispatch(listProductReviews(id_product));
         } else {
-            console.error('No product id found in the URL.'); // Log if id is undefined
+            console.error('No product id found in the URL.');
         }
-    }, [id_product]); // Dependency array ensures this effect runs when id changes
+    }, [id_product, dispatch]);
 
     return (
         <Row>
@@ -39,7 +56,7 @@ function ProductScreen() {
                             <h3>{product.product_name}</h3>
                         </ListGroup.Item>
                         <ListGroup.Item>
-                            <Rating value={product.rating} text={`${product.numReviews} reviews`} />
+                            <Rating value={averageRating} text={`${product.numReviews} reviews`} />
                         </ListGroup.Item>
                         <ListGroup.Item>Price: ${product.price}</ListGroup.Item>
                         <ListGroup.Item>Description: {product.description}</ListGroup.Item>
@@ -69,6 +86,20 @@ function ProductScreen() {
                             >
                                 Add to Cart
                             </Button>
+                        </ListGroup.Item>
+                        <ListGroup.Item>
+                            <h4>Reviews</h4>
+                            {loadingReviews ? (
+                                <p>Loading reviews...</p>
+                            ) : errorReviews ? (
+                                <p>{errorReviews}</p>
+                            ) : (
+                                <ul>
+                                    {reviews.map(review => (
+                                        <li key={review.id}>{review.comment}</li>
+                                    ))}
+                                </ul>
+                            )}
                         </ListGroup.Item>
                     </ListGroup>
                 </Card>

@@ -15,10 +15,27 @@ class ProductService {
       }
     }
 
-    getProductById(id_product) {
+    async getProductById(id_product) {
         return axios.get(`${this.baseUrl}${id_product}/`).then(res => res.data);
     }
-
+    async getProductReviews(id_product) {
+        try {
+            const response = await axios.get(`${this.baseUrl}${id_product}/`);
+            return response.data;
+        } catch (error) {
+            console.error(`Error in ProductService getProductReviews(${id_product}):`, error);
+            throw error;
+        }
+    }
+    async getProductReviewAverage(id_product) {
+        try {
+            const response = await axios.get(`${this.baseUrl}${id_product}/`);
+            return response.data;
+        } catch (error) {
+            console.error(`Error in ProductService getProductReviewAverage(${id_product}):`, error);
+            throw error;
+        }
+    }
     save(product) {
         const config = {
             headers: {

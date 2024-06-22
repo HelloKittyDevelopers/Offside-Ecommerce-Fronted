@@ -2,7 +2,7 @@ import React from 'react';
 import { Card } from 'react-bootstrap';
 import Rating from './Rating';
 
-function Product({ product }) {
+function Product({ product, showReviews = false }) {
     return (
         <div>
             <Card className="my-3 p-3 rounded">
@@ -25,6 +25,16 @@ function Product({ product }) {
                         ${product.price}
                     </Card.Text>
 
+                    {showReviews && product.reviews && (
+                        <div>
+                            <h4>Reviews</h4>
+                            <ul>
+                                {product.reviews.map(review => (
+                                    <li key={review.id}>{review.comment}</li>
+                                ))}
+                            </ul>
+                        </div>
+                    )}
                 </Card.Body>
             </Card>
         </div>
