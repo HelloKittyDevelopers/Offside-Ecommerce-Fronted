@@ -3,10 +3,9 @@ import { useParams } from 'react-router-dom';
 import { Row, Col, Image, ListGroup, Button, Card, Form } from 'react-bootstrap';
 import Rating from '../components/Rating';
 import axios from 'axios';
-import ProductService from '../service/ProductService';
 
 function ProductScreen() {
-    const { id } = useParams(); // Ensure this gets the correct id from the URL
+    const { id_product } = useParams(); // Ensure this gets the correct id from the URL
     const [product, setProduct] = useState({}); // Initialize product as an empty object
     const [size, setSize] = useState(''); // State for handling selected size
 
@@ -14,26 +13,24 @@ function ProductScreen() {
         // Function to fetch product data from API
         async function fetchProduct() {
             try {
-                const productData = await ProductService.getAll();
-                console.log(productData); // product data
-                const { data } = await axios.get(`/api/products/${id}/`); // GET request to API
+                const { data } = await axios.get(`/home/products/${id_product}/`); // GET request to API
                 setProduct(data); // Update state with fetched data
                 console.log('Fetched product data:', data); // Log the fetched data
             } catch (error) {
                 console.error('Error fetching product:', error); // Error handling
             }
         }
-        if (id) { // Ensure id is defined before calling the API
+        if (id_product) { // Ensure id is defined before calling the API
             fetchProduct(); // Call the function to fetch product data
         } else {
             console.error('No product id found in the URL.'); // Log if id is undefined
         }
-    }, [id]); // Dependency array ensures this effect runs when id changes
+    }, [id_product]); // Dependency array ensures this effect runs when id changes
 
     return (
         <Row>
             <Col md={6}>
-                <Image src={product.image} alt={product.name} fluid />
+                <Image src={product.image} alt={product.product_name} fluid />
             </Col>
             <Col md={4}>
                 <Card>

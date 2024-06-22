@@ -15,8 +15,8 @@ class ProductService {
       }
     }
 
-    getProductById(id) {
-        return axios.get(`${this.baseUrl}${id}/`).then(res => res.data);
+    getProductById(id_product) {
+        return axios.get(`${this.baseUrl}${id_product}/`).then(res => res.data);
     }
 
     save(product) {
@@ -28,17 +28,17 @@ class ProductService {
         return axios.post(this.baseUrl, JSON.stringify(product), config).then(res => res.data);
     }
 
-    delete(id) {
-        return axios.delete(`${this.baseUrl}${id}/`).then(res => res.data);
+    delete(id_product) {
+        return axios.delete(`${this.baseUrl}${id_product}/`).then(res => res.data);
     }
 
-    update(id, product) {
+    update(id_product, product) {
         const config = {
             headers: {
                 'Content-Type': 'application/json'
             }
         };
-        return axios.put(`${this.baseUrl}${id}/`, JSON.stringify(product), config).then(res => res.data);
+        return axios.put(`${this.baseUrl}${id_product}/`, JSON.stringify(product), config).then(res => res.data);
     }
 }
 
