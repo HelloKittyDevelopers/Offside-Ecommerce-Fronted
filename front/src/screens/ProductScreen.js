@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { Row, Col, Image, ListGroup, Button, Card, Form } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { listProductDetails } from '../actions/productActions';
@@ -8,11 +8,14 @@ import Rating from '../components/Rating';
 function ProductScreen() {
     const { id_product } = useParams();
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const productDetails = useSelector((state) => state.productDetails);
     const { loading, error, product } = productDetails;
 
     const [size, setSize] = useState('');
+    const [qty, setQty] = useState('1');
+    const [countInStock, setCountInStock] = useState(0);
 
     useEffect(() => {
         if (id_product) {
@@ -21,6 +24,21 @@ function ProductScreen() {
             console.error('No product id found in the URL.');
         }
     }, [dispatch, id_product]);
+
+    useEffect(() => {
+        if (size && product.sizes) {
+            const selectedSize = product.sizes.find(s => s.size === size);
+            if (selectedSize) {
+                setCountInStock(selectedSize.quantity);
+                setQty('1');
+            }
+        }
+    }, [size, product.sizes]);
+
+    const addTocartHandler = () => {
+        console.log(`Adding to cart: Product ID - ${id_product}, Quantity - ${qty}, Size - ${size}`);
+        // Future implementation for adding to cart will go here
+    };
 
     if (loading) {
         return <p>Loading...</p>;
@@ -33,8 +51,8 @@ function ProductScreen() {
     return (
         <Row>
             <Col md={6}>
-                {product.image ? (
-                    <Image src={product.image} alt={product.product_name} fluid />
+                {product.images && product.images.length > 0 ? (
+                    <Image src={product.images[0].image} alt={product.product_name} fluid />
                 ) : (
                     <p>No image available</p>
                 )}
@@ -59,20 +77,44 @@ function ProductScreen() {
                                         value={size}
                                         onChange={(e) => setSize(e.target.value)}
                                     >
+                                        <option value="">Select size</option>
                                         {product.sizes.map((s) => (
                                             <option key={s.size} value={s.size}>
-                                                {`${s.size} (${s.countInStock} available)`}
+                                                {`${s.size} (${s.quantity} available)`}
                                             </option>
                                         ))}
                                     </Form.Control>
                                 </Form.Group>
                             </ListGroup.Item>
                         )}
+                        {size && (
+                            <ListGroup.Item>
+                                <Row>
+                                    <Col> Qty </Col>
+                                    <Col xs='auto' className='my-1'>
+                                        <Form.Control
+                                            as="select"
+                                            value={qty}
+                                            onChange={(e) => setQty(e.target.value)}
+                                        >
+                                            {
+                                                [...Array(countInStock).keys()].map((x) => (
+                                                    <option key={x + 1} value={x + 1}>
+                                                        {x + 1}
+                                                    </option>
+                                                ))
+                                            }
+                                        </Form.Control>
+                                    </Col>
+                                </Row>
+                            </ListGroup.Item>
+                        )}
                         <ListGroup.Item className="d-flex justify-content-center">
                             <Button
+                                onClick={addTocartHandler}
                                 className="btn btn-primary btn-lg btn-block"
                                 type="button"
-                                disabled={product.countInStock === 0}
+                                disabled={countInStock === 0}
                             >
                                 Add to Cart
                             </Button>
