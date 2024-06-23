@@ -1,11 +1,7 @@
-import { createSlice } from '@reduxjs/toolkit';
 import {
   PRODUCT_LIST_REQUEST,
   PRODUCT_LIST_SUCCESS,
   PRODUCT_LIST_FAIL,
-  PRODUCT_DETAILS_REQUEST,
-  PRODUCT_DETAILS_SUCCESS,
-  PRODUCT_DETAILS_FAIL
 } from '../constants/productConstants';
 
 const initialState = {
@@ -14,25 +10,15 @@ const initialState = {
   error: null,
 };
 
-const productSlice = createSlice({
-  name: 'productList',
-  initialState,
-  reducers: {},
-  extraReducers: (builder) => {
-    builder
-      .addCase(PRODUCT_LIST_REQUEST, (state) => {
-        state.loading = true;
-        state.products = [];
-      })
-      .addCase(PRODUCT_LIST_SUCCESS, (state, action) => {
-        state.loading = false;
-        state.products = action.payload;
-      })
-      .addCase(PRODUCT_LIST_FAIL, (state, action) => {
-        state.loading = false;
-        state.error = action.payload;
-      });
-  },
-});
-
-export default productSlice.reducer;
+export const productListReducer = (state = initialState, action) => {
+  switch (action.type) {
+    case PRODUCT_LIST_REQUEST:
+      return { ...state, loading: true };
+    case PRODUCT_LIST_SUCCESS:
+      return { ...state, loading: false, products: action.payload };
+    case PRODUCT_LIST_FAIL:
+      return { ...state, loading: false, error: action.payload };
+    default:
+      return state;
+  }
+};

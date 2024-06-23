@@ -6,56 +6,63 @@ class ProductService {
     }
 
     async getAll() {
-      try {
-          const response = await axios.get(this.baseUrl);
-          return response.data;
-      } catch (error) {
-          console.error('Error in ProductService getAll:', error);
-          throw error;
-      }
+        try {
+            const response = await axios.get(this.baseUrl);
+            return response.data;
+        } catch (error) {
+            console.error('Error in ProductService getAll:', error);
+            throw error;
+        }
     }
 
     async getProductById(id_product) {
-        return axios.get(`${this.baseUrl}${id_product}/`).then(res => res.data);
-    }
-    async getProductReviews(id_product) {
         try {
             const response = await axios.get(`${this.baseUrl}${id_product}/`);
             return response.data;
         } catch (error) {
-            console.error(`Error in ProductService getProductReviews(${id_product}):`, error);
+            console.error('Error in ProductService getProductById:', error);
             throw error;
         }
     }
-    async getProductReviewAverage(id_product) {
-        try {
-            const response = await axios.get(`${this.baseUrl}${id_product}/`);
-            return response.data;
-        } catch (error) {
-            console.error(`Error in ProductService getProductReviewAverage(${id_product}):`, error);
-            throw error;
-        }
-    }
-    save(product) {
+
+    async save(product) {
         const config = {
             headers: {
                 'Content-Type': 'application/json'
             }
         };
-        return axios.post(this.baseUrl, JSON.stringify(product), config).then(res => res.data);
+        try {
+            const response = await axios.post(this.baseUrl, JSON.stringify(product), config);
+            return response.data;
+        } catch (error) {
+            console.error('Error in ProductService save:', error);
+            throw error;
+        }
     }
 
-    delete(id_product) {
-        return axios.delete(`${this.baseUrl}${id_product}/`).then(res => res.data);
+    async delete(id_product) {
+        try {
+            const response = await axios.delete(`${this.baseUrl}${id_product}/`);
+            return response.data;
+        } catch (error) {
+            console.error('Error in ProductService delete:', error);
+            throw error;
+        }
     }
 
-    update(id_product, product) {
+    async update(id_product, product) {
         const config = {
             headers: {
                 'Content-Type': 'application/json'
             }
         };
-        return axios.put(`${this.baseUrl}${id_product}/`, JSON.stringify(product), config).then(res => res.data);
+        try {
+            const response = await axios.put(`${this.baseUrl}${id_product}/`, JSON.stringify(product), config);
+            return response.data;
+        } catch (error) {
+            console.error('Error in ProductService update:', error);
+            throw error;
+        }
     }
 }
 

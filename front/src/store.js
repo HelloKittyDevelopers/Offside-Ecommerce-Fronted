@@ -1,13 +1,12 @@
 import { configureStore } from '@reduxjs/toolkit';
-import {thunk} from 'redux-thunk';
-import productReducer from './reducers/productReducers';
-import reviewReducer from './reducers/reviewReducer';
+import {productListReducer} from './reducers/productReducers';
+import productDetailsReducer from './reducers/productDetailReducer';
+
 const store = configureStore({
   reducer: {
-    productList: productReducer,
-    reviewList: reviewReducer
+    productList: productListReducer,
+    productDetails: productDetailsReducer,
   },
-  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(thunk),
   devTools: process.env.NODE_ENV !== 'production',
 });
 

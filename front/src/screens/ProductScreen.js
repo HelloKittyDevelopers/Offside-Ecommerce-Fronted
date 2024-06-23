@@ -1,53 +1,43 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { Row, Col, Image, ListGroup, Button, Card, Form } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
-import ProductService from '../service/ProductService';
+import { listProductDetails } from '../actions/productActions';
 import Rating from '../components/Rating';
-import { listProductReviews } from '../actions/reviewActions';
 
 function ProductScreen() {
     const { id_product } = useParams();
     const dispatch = useDispatch();
 
-    const [product, setProduct] = useState({});
-    const [size, setSize] = useState(''); // Inicializar el estado size
-    const [averageRating, setAverageRating] = useState(0);
-    const reviewList = useSelector((state) => state.reviewList);
-    const { reviews, loading: loadingReviews, error: errorReviews } = reviewList;
+    const productDetails = useSelector((state) => state.productDetails);
+    const { loading, error, product } = productDetails;
+
+    const [size, setSize] = useState('');
 
     useEffect(() => {
-        const fetchProduct = async () => {
-            try {
-                const data = await ProductService.getProductById(id_product);
-                setProduct(data);
-            } catch (error) {
-                console.error('Error fetching product:', error);
-            }
-        };
-
-        const fetchAverageRating = async () => {
-            try {
-                const data = await ProductService.getProductReviewAverage(id_product);
-                setAverageRating(data.average_rating || 0);
-            } catch (error) {
-                console.error('Error fetching average rating:', error);
-            }
-        };
-
         if (id_product) {
-            fetchProduct();
-            fetchAverageRating();
-            dispatch(listProductReviews(id_product));
+            dispatch(listProductDetails(id_product));
         } else {
             console.error('No product id found in the URL.');
         }
-    }, [id_product, dispatch]);
+    }, [dispatch, id_product]);
+
+    if (loading) {
+        return <p>Loading...</p>;
+    }
+
+    if (error) {
+        return <p>{error}</p>;
+    }
 
     return (
         <Row>
             <Col md={6}>
-                <Image src={product.image} alt={product.product_name} fluid />
+                {product.image ? (
+                    <Image src={product.image} alt={product.product_name} fluid />
+                ) : (
+                    <p>No image available</p>
+                )}
             </Col>
             <Col md={4}>
                 <Card>
@@ -56,7 +46,7 @@ function ProductScreen() {
                             <h3>{product.product_name}</h3>
                         </ListGroup.Item>
                         <ListGroup.Item>
-                            <Rating value={averageRating} text={`${product.numReviews} reviews`} />
+                            <Rating value={product.average_rating || 0} text={`${product.review_count || 0} reviews`} />
                         </ListGroup.Item>
                         <ListGroup.Item>Price: ${product.price}</ListGroup.Item>
                         <ListGroup.Item>Description: {product.description}</ListGroup.Item>
@@ -89,16 +79,14 @@ function ProductScreen() {
                         </ListGroup.Item>
                         <ListGroup.Item>
                             <h4>Reviews</h4>
-                            {loadingReviews ? (
-                                <p>Loading reviews...</p>
-                            ) : errorReviews ? (
-                                <p>{errorReviews}</p>
-                            ) : (
+                            {product.reviews && product.reviews.length > 0 ? (
                                 <ul>
-                                    {reviews.map(review => (
+                                    {product.reviews.map(review => (
                                         <li key={review.id}>{review.comment}</li>
                                     ))}
                                 </ul>
+                            ) : (
+                                <p>No reviews yet</p>
                             )}
                         </ListGroup.Item>
                     </ListGroup>
