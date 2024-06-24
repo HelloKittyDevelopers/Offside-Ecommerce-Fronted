@@ -36,8 +36,7 @@ function ProductScreen() {
     }, [size, product.sizes]);
 
     const addTocartHandler = () => {
-        console.log(`Adding to cart: Product ID - ${id_product}, Quantity - ${qty}, Size - ${size}`);
-        // Future implementation for adding to cart will go here
+        navigate(`/cart/${id_product}?qty=${qty}&size=${size}`);
     };
 
     if (loading) {
@@ -124,7 +123,7 @@ function ProductScreen() {
                             {product.reviews && product.reviews.length > 0 ? (
                                 <ul>
                                     {product.reviews.map(review => (
-                                        <li key={review.id}>{review.comment}</li>
+                                        <li key={review.id_review}>{review.comment}</li>
                                     ))}
                                 </ul>
                             ) : (
