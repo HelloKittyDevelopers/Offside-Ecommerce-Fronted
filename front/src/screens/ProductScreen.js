@@ -3,6 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { Row, Col, Image, ListGroup, Button, Card, Form } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { listProductDetails } from '../actions/productActions';
+import { addToCart } from '../actions/CartActions';
 import Rating from '../components/Rating';
 
 function ProductScreen() {
@@ -36,7 +37,8 @@ function ProductScreen() {
     }, [size, product.sizes]);
 
     const addTocartHandler = () => {
-        navigate(`/cart/${id_product}?qty=${qty}&size=${size}`);
+        dispatch(addToCart(id_product, qty, size));
+        navigate(`/cart?id=${id_product}&qty=${qty}&size=${size}`);
     };
 
     if (loading) {
