@@ -44,11 +44,15 @@ function HomeScreen() {
           <Message variant="danger">{error}</Message>
         ) : (
           <Row>
-            {products.map((product) => (
-              <Col key={product.id_product} xs={12} sm={6} md={4} lg={3}>
-                <Product product={product} />
-              </Col>
-            ))}
+            {products && products.length > 0 ? (
+              products.map((product) => (
+                <Col key={product.id_product} xs={12} sm={6} md={4} lg={3}>
+                  <Product product={product} />
+                </Col>
+              ))
+            ) : (
+              <Message variant="info">No products found</Message>
+            )}
           </Row>
         )}
       </Container>
