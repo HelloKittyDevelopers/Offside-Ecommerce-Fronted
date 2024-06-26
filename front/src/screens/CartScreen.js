@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { Row, Col, ListGroup, Image, Form, Button, Card } from 'react-bootstrap';
+import { Row, Col, ListGroup, Image, Button, Card } from 'react-bootstrap';
 import Message from '../components/Message';
-import { addToCart } from '../actions/CartActions'
-import { useParams, useLocation, useNavigate } from 'react-router-dom';
+import { addToCart, removeFromCart } from '../actions/CartActions';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 function CartScreen() {
     const location = useLocation();
@@ -23,15 +23,15 @@ function CartScreen() {
         if (id) {
             dispatch(addToCart(id, qty, size));
         }
-    }, [dispatch, id, qty, size]); // Asegúrate de que estos valores no cambien innecesariamente
+    }, [dispatch, id, qty, size]);
 
-    const removeFromCartHandler = (id) => {
-        // Aquí agregas tu lógica para eliminar el ítem del carrito
-    }
-    
+    const removeFromCartHandler = (id, size) => {
+        dispatch(removeFromCart(id, size));
+    };
+
     const checkoutHandler = () => {
         // Aquí agregas tu lógica para proceder al checkout
-    }
+    };
 
     return (
         <Row>
@@ -44,37 +44,28 @@ function CartScreen() {
                 ) : (
                     <ListGroup variant='flush'>
                         {cartItems.map(item => (
-                            <ListGroup.Item key={item.product}>
+                            <ListGroup.Item key={`${item.id_product}-${item.size}`}>
                                 <Row>
                                     <Col md={2}>
-                                        <Image src={item.image} alt={item.name} fluid rounded />
+                                        <Image src={item.images[0].image} alt={item.name} fluid rounded />
                                     </Col>
                                     <Col md={3}>
-                                        <Link to={`/product/${item.product}`}>{item.name}</Link>
+                                        <Link to={`/product/${item.id_product}`}>{item.name}</Link>
                                     </Col>
                                     <Col md={2}>
                                         ${item.price}
                                     </Col>
                                     <Col md={2}>
-                                        <Form.Control
-                                            as='select'
-                                            value={item.qty}
-                                            onChange={(e) =>
-                                                dispatch(addToCart(item.product, Number(e.target.value), item.size))
-                                            }
-                                        >
-                                            {[...Array(item.countInStock).keys()].map(x => (
-                                                <option key={x + 1} value={x + 1}>
-                                                    {x + 1}
-                                                </option>
-                                            ))}
-                                        </Form.Control>
+                                        <span>{item.size}</span>
                                     </Col>
                                     <Col md={2}>
+                                        <span>{item.qty}</span>
+                                    </Col>
+                                    <Col md={1}>
                                         <Button
                                             type='button'
                                             variant='light'
-                                            onClick={() => removeFromCartHandler(item.product)}
+                                            onClick={() => removeFromCartHandler(item.id_product, item.size)}
                                         >
                                             <i className='fas fa-trash'></i>
                                         </Button>

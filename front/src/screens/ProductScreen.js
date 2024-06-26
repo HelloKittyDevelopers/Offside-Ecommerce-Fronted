@@ -41,8 +41,9 @@ function ProductScreen() {
         navigate(`/cart`);
     };
 
-    const addTocartHandler = () => {
-        dispatch(addToCart(id_product, qty, size));
+    const addToCartHandler = () => {
+        const images = product.images ? product.images.map(img => img.image) : []; // Obtener URLs de las imágenes
+        dispatch(addToCart(id_product, Number(qty), size, countInStock, product.images));
         setShowConfirmation(true);
         setTimeout(() => {
             setShowConfirmation(false);
@@ -121,7 +122,7 @@ function ProductScreen() {
                         )}
                         <ListGroup.Item className="d-flex justify-content-center">
                             <Button
-                                onClick={addTocartHandler}
+                                onClick={addToCartHandler}
                                 className="btn btn-primary btn-lg btn-block"
                                 type="button"
                                 disabled={countInStock === 0}
@@ -129,13 +130,6 @@ function ProductScreen() {
                                 Add to Cart
                             </Button>
                         </ListGroup.Item>
-                        {showConfirmation && (
-                            <ListGroup.Item>
-                                <Alert variant="success">
-                                    Product added to cart!
-                                </Alert>
-                            </ListGroup.Item>
-                        )}
                         <ListGroup.Item>
                             <h4>Reviews</h4>
                             {product.reviews && product.reviews.length > 0 ? (
@@ -151,6 +145,13 @@ function ProductScreen() {
                     </ListGroup>
                 </Card>
             </Col>
+            {showConfirmation && (
+                <Col md={12}>
+                    <Alert variant="success" className="mt-3">
+                        Product added to cart!
+                    </Alert>
+                </Col>
+            )}
         </Row>
     );
 }
