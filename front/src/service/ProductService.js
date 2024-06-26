@@ -64,6 +64,16 @@ class ProductService {
             throw error;
         }
     }
+
+    async getByType(type) {
+        try {
+            const response = await axios.get(`${this.baseUrl}by_type/${type}/`);
+            return response.data;
+        } catch (error) {
+            console.error('Error in ProductService getByType:', error);
+            throw error;
+        }
+    }
 }
 
 export default new ProductService();
