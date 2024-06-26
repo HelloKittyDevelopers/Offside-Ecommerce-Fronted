@@ -6,6 +6,8 @@ import { Container } from 'react-bootstrap';
 import HomeScreen from './screens/HomeScreen';
 import ProductScreen from './screens/ProductScreen';
 import CartScreen from './screens/CartScreen';
+import ProductListingScreen from './screens/ProductListingScreen';
+
 
 function App() {
   return (
@@ -16,6 +18,7 @@ function App() {
           <Routes>
             <Route path="/home/" element={<HomeScreen />} exact />
             <Route path="/product/:id_product/" element={<ProductScreen />} />
+            <Route path="/type/:type/" element={<ProductListingScreen />} />
             <Route path="/" element={<Navigate to="/home/" />} />
             <Route path="/cart" element={<CartScreen />} exact/>
           </Routes>
