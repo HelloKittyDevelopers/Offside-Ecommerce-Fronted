@@ -6,7 +6,7 @@ import { InputText } from 'primereact/inputtext';
 import { ConfirmDialog, confirmDialog } from 'primereact/confirmdialog';
 import { Toast } from 'primereact/toast';
 import ProductService from '../../../service/ProductService';
-import ProductEditDialog from './ProductEditDialog'; // Import the new dialog component
+import ProductEditDialog from './ProductEditDialog';
 
 const ProductListPage = () => {
   const [products, setProducts] = useState([]);
@@ -63,29 +63,22 @@ const ProductListPage = () => {
     return (
       <div>
         <Button
-          label=""
           icon="pi pi-pencil"
           onClick={() => editProduct(rowData)}
+          className="p-button-rounded p-button-text"
           style={{
-            backgroundColor: "black", // Set background color to black
-            color: "white", // Adjust text color for better contrast
-            border: "none", // Remove border if desired
-            borderRadius: "4px", // Optional rounded corners
-            marginTop: "30px",
-            marginRight: "10px",
+            backgroundColor: "white", // Set background color to black
+            color: "black", // Adjust text color for better contrast
+            marginRight: "3px"
           }}
         />
         <Button
-          label=""
-          icon="pi pi-times"
-          className="p-button-danger"
+          icon="pi pi-trash"
           onClick={() => deleteProduct(rowData.id_product)}
+          className="p-button-rounded p-button-danger p-button-text"
           style={{
-            backgroundColor: "black", // Set background color to black
-            color: "white", // Adjust text color for better contrast
-            border: "none", // Remove border if desired
-            borderRadius: "4px", // Optional rounded corners
-            marginTop: "30px",
+            backgroundColor: "white", // Set background color to black
+            color: "black", // Adjust text color for better contrast
           }}
         />
       </div>
@@ -107,6 +100,10 @@ const ProductListPage = () => {
     </div>
   );
 
+  const priceBodyTemplate = (rowData) => {
+    return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(rowData.price);
+  };  
+
   if (loading) {
     return <div>Cargando productos...</div>;
   }
@@ -120,11 +117,17 @@ const ProductListPage = () => {
         header={header}
         globalFilter={globalFilter}
         emptyMessage="No se encontraron productos."
+        paginator
+        rows={10}
+        rowsPerPageOptions={[5, 10, 25]}
+        paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown"
+        currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} productos"
       >
-        <Column field="id_product" header="Ref" />
-        <Column field="product_name" header="Nombre del Producto" />
-        <Column field="price" header="Precio" />
+        <Column field="id_product" header="ID" sortable />
+        <Column field="product_name" header="Nombre del Producto" sortable />
+        <Column field="price" header="Precio" body={priceBodyTemplate} sortable />
         <Column field="description" header="Descripción" />
+        <Column field="type_category.type" header="Tipo" sortable />
         <Column body={actionBodyTemplate} header="Acciones" />
       </DataTable>
       <ProductEditDialog

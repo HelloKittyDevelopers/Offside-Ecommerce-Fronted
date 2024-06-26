@@ -36,6 +36,9 @@ class ProductService {
       return response.data;
     } catch (error) {
       console.error('Error in ProductService save:', error);
+      console.error('Error data:', error.response.data);
+      console.error('Error status:', error.response.status);
+      console.error('Error headers:', error.response.headers);
       throw error;
     }
   }
