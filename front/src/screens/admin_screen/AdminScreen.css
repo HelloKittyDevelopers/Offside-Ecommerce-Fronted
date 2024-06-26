@@ -1,0 +1,32 @@
+.button-container {
+    display: flex;
+    justify-content: center;
+    gap: 40px; /* Espacio entre los botones */
+    margin-top: 15%;
+    margin-bottom: 15%;
+    align-items: center; /* Centrar elementos horizontalmente */
+  }
+  
+  .custom-button {
+    width: 200px; /* Ancho del botón */
+    height: 200px; /* Alto del botón */
+    border-radius: 20px; /* Bordes redondeados */
+    border: 3px solid #000; /* Color del borde */
+    color: #000; /* Color del texto */
+    background-color: #fff; /* Color de fondo */
+    font-weight: bold; /* Negrita */
+    flex-direction: column; /* Alinear elementos en columna */
+    gap: 10px; /* Espacio entre el ícono y el texto */
+    transition: background-color 0.3s, color 0.3s; /* Transiciones suaves */
+  }
+  
+  .custom-button .pi {
+    margin-top: 30%;
+    font-size: 3em; /* Tamaño del ícono */
+  }
+  
+  .custom-button:hover {
+    background-color: #1f1f1f;
+    color: #fff;
+    border-color: #000;
+  }
