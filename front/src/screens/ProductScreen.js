@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { Row, Col, Image, ListGroup, Button, Card, Form } from 'react-bootstrap';
+import { Row, Col, Image, ListGroup, Button, Card, Form, Alert } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { listProductDetails } from '../actions/productActions';
 import { addToCart } from '../actions/CartActions';
@@ -17,6 +17,7 @@ function ProductScreen() {
     const [size, setSize] = useState('');
     const [qty, setQty] = useState('1');
     const [countInStock, setCountInStock] = useState(0);
+    const [showConfirmation, setShowConfirmation] = useState(false);
 
     useEffect(() => {
         if (id_product) {
@@ -36,9 +37,17 @@ function ProductScreen() {
         }
     }, [size, product.sizes]);
 
+    const goToCartHandler = () => {
+        navigate(`/cart`);
+    };
+
     const addTocartHandler = () => {
         dispatch(addToCart(id_product, qty, size));
-        navigate(`/cart?id=${id_product}&qty=${qty}&size=${size}`);
+        setShowConfirmation(true);
+        setTimeout(() => {
+            setShowConfirmation(false);
+            goToCartHandler();
+        }, 1500); // Mostrar el mensaje durante 1.5 segundos antes de redirigir
     };
 
     if (loading) {
@@ -120,6 +129,13 @@ function ProductScreen() {
                                 Add to Cart
                             </Button>
                         </ListGroup.Item>
+                        {showConfirmation && (
+                            <ListGroup.Item>
+                                <Alert variant="success">
+                                    Product added to cart!
+                                </Alert>
+                            </ListGroup.Item>
+                        )}
                         <ListGroup.Item>
                             <h4>Reviews</h4>
                             {product.reviews && product.reviews.length > 0 ? (

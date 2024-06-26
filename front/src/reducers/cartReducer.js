@@ -15,7 +15,7 @@ export const cartReducer = (state = initialState, action) => {
                     ...state,
                     cartItems: state.cartItems.map(x => 
                         x.id_product === existItem.id_product && x.size === existItem.size
-                            ? { ...x, qty: parseInt(x.qty) + parseInt(item.qty) }
+                            ? { ...x, qty: Number(x.qty) + Number(item.qty) }
                             : x
                     ),
                 };

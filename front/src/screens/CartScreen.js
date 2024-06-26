@@ -10,7 +10,7 @@ function CartScreen() {
     const location = useLocation();
     const searchParams = new URLSearchParams(location.search);
     const id = searchParams.get('id');
-    const qty = searchParams.get('qty') || 1;
+    const qty = parseInt(searchParams.get('qty')) || 1;
     const size = searchParams.get('size');
 
     const dispatch = useDispatch();
@@ -23,7 +23,7 @@ function CartScreen() {
         if (id) {
             dispatch(addToCart(id, qty, size));
         }
-    }, [dispatch, id, qty, size]);
+    }, [dispatch, id, qty, size]); // Asegúrate de que estos valores no cambien innecesariamente
 
     const removeFromCartHandler = (id) => {
         // Aquí agregas tu lógica para eliminar el ítem del carrito
