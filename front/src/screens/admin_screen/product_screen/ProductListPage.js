@@ -172,7 +172,6 @@ const ProductListPage = () => {
           field="product_name"
           header="Nombre del Producto"
           sortable
-          style={{ maxWidth: "90px" }}
           style={{
             maxWidth: "90px",
             overflow: "hidden",

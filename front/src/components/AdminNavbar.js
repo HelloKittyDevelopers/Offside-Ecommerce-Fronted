@@ -38,7 +38,7 @@ function AdminNavbar({ isExpanded, setIsExpanded }) {
           <LinkContainer to="/admin/sizes" onClick={collapseNavbar}>
             <Nav.Link><FaRuler /> <span className="ms-3">Sizes</span></Nav.Link>
           </LinkContainer>
-          <LinkContainer to="/admin/reports" onClick={collapseNavbar}>
+          <LinkContainer to="/admin/" onClick={collapseNavbar}>
             <Nav.Link><FaChartBar /> <span className="ms-3">Reportes</span></Nav.Link>
           </LinkContainer>
         </>

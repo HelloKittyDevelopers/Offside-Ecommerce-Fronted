@@ -72,4 +72,13 @@ h3{
   padding: 10px 20px; /* Ajusta el valor según tu preferencia */
 }
 
+.black-file-upload .p-button {
+  background-color: #000;
+  border-color: #000;
+  color: #fff;
+}
 
+.black-file-upload .p-button:hover {
+  background-color: #333;
+  border-color: #333;
+}

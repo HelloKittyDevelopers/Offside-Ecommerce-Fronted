@@ -1,7 +1,7 @@
 export default function AdminScreen() {
   return (
       <div>
-      <a> pagina de ADMINISTRADOOOOR </a>
+      <a> pagina de de reporteeees de admin wiiii </a>
       </div>
   );
 }

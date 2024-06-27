@@ -96,7 +96,7 @@ const CategoryScreen = () => {
               placeholder="New category"
               style={{ width: '100%', marginBottom: '10px' }}
             />
-            <Button icon="pi pi-plus" onClick={addNewCategory} className="p-button-primary" style={{ height: '42px', width: '42px'}} />
+            <Button icon="pi pi-plus" onClick={addNewCategory} className="p-button-primary" style={{ backgroundColor: "black", height: '42px', width: '42px'}}  />
           </div>
         </div>
       </div>

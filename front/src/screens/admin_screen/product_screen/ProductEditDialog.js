@@ -73,9 +73,9 @@ const ProductEditDialog = ({ visible, onHide, showToast, product }) => {
       });
 
       if (product.categories) {
-        setProductState(prevState => ({
+        setProductState((prevState) => ({
           ...prevState,
-          categories: product.categories.map(cat => cat.id_category)
+          categories: product.categories.map((cat) => cat.id_category),
         }));
       } else {
         fetchCategoriesForProduct(product.id_product);
@@ -102,9 +102,9 @@ const ProductEditDialog = ({ visible, onHide, showToast, product }) => {
     setProductState({ ...productState, [field]: e.value });
   };
 
-  const handleFileUpload = (event) => {
-    const uploadedFiles = event.files;
-    setProductState({ ...productState, images: [...productState.images, ...uploadedFiles] });
+  const handleImageUpload = (e) => {
+    const uploadedImages = e.files;
+    setProductState({ ...product, images: [...product.images, ...uploadedImages] });
   };
 
   const saveProduct = () => {
@@ -125,11 +125,16 @@ const ProductEditDialog = ({ visible, onHide, showToast, product }) => {
 
   const renderImagePreviews = () => {
     return productState.images.map((image, index) => (
-      <img 
-        key={index} 
-        src={typeof image === 'string' ? image : URL.createObjectURL(image)} 
-        alt={`Preview ${index}`} 
-        style={{ width: '100px', height: '100px', objectFit: 'cover', margin: '5px' }}
+      <img
+        key={index}
+        src={typeof image === "string" ? image : URL.createObjectURL(image)}
+        alt={`Preview ${index}`}
+        style={{
+          width: "100px",
+          height: "100px",
+          objectFit: "cover",
+          margin: "5px",
+        }}
       />
     ));
   };
@@ -212,25 +217,34 @@ const ProductEditDialog = ({ visible, onHide, showToast, product }) => {
         />
       </div>
       <div className="p-field">
-        <label htmlFor="images">Imágenes actuales</label>
-        <div>{renderImagePreviews()}</div>
-        <label>Agregar o reemplazar imágenes</label>
-        <FileUpload
-          name="images"
-          customUpload
-          auto
-          multiple
-          accept="image/*"
-          uploadHandler={handleFileUpload}
-        />
-      </div>
+          <label htmlFor="images">Imágenes</label>
+          <FileUpload
+            name="images"
+            multiple
+            accept="image/*"
+            //maxFileSize={1000000}
+            onUpload={handleImageUpload}
+            emptyTemplate={
+              <p className="p-m-0">
+                Arrastra y suelta imágenes aquí para subirlas.
+              </p>
+            }
+            className="black-file-upload"
+          />
+        </div>
       <div className="p-field">
-        <Button label="Guardar" icon="pi pi-check" onClick={saveProduct} />
         <Button
-          label="Cancelar"
-          icon="pi pi-times"
-          onClick={onHide}
-          className="p-button-secondary"
+          label="Guardar"
+          icon="pi pi-check"
+          onClick={saveProduct}
+          style={{
+            backgroundColor: "black", // Set background color to black
+            color: "white", // Adjust text color for better contrast
+            padding: "10px 20px", // Optional padding for spacing
+            border: "none", // Remove border if desired
+            borderRadius: "4px", // Optional rounded corners
+            marginTop: "30px",
+          }}
         />
       </div>
     </Dialog>
