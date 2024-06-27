@@ -40,7 +40,7 @@ function RegisterScreen() {
             dispatch(register({ firstName, lastName, email, username, password }));
         }
     };
-
+    
     return (
         <FormContainer>
             <h1>Sign Up</h1>
