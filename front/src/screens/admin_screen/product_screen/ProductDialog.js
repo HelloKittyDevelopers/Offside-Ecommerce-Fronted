@@ -48,7 +48,7 @@ const ProductDialog = ({ visible, onHide, showToast }) => {
   };
 
   const handleImageUpload = (e) => {
-    const uploadedImages = e.files.map((file) => file);
+    const uploadedImages = e.files;
     setProduct({ ...product, images: [...product.images, ...uploadedImages] });
   };
 
@@ -86,17 +86,7 @@ const ProductDialog = ({ visible, onHide, showToast }) => {
   };
 
   const saveProduct = () => {
-    const formData = new FormData();
-    formData.append("product_name", product.product_name);
-    formData.append("price", product.price);
-    formData.append("description", product.description);
-    formData.append("type_category", product.type_category.id_type);
-    product.categories.forEach((category) =>
-      formData.append("categories", category.id_category)
-    );
-    product.images.forEach((image) => formData.append("images", image));
-
-    ProductService.save(formData)
+    ProductService.save(product)
       .then(() => {
         showToast("success", "Éxito", "Producto añadido");
         onHide();
@@ -133,8 +123,8 @@ const ProductDialog = ({ visible, onHide, showToast }) => {
             value={product.price}
             onValueChange={handleNumberChange}
             mode="currency"
-            currency="EUR"
-            locale="es-ES"
+            currency="USD"
+            locale="en-US"
           />
         </div>
         <div className="p-field">
@@ -198,7 +188,7 @@ const ProductDialog = ({ visible, onHide, showToast }) => {
             name="images"
             multiple
             accept="image/*"
-            maxFileSize={1000000}
+            //maxFileSize={1000000}
             onUpload={handleImageUpload}
             emptyTemplate={
               <p className="p-m-0">
@@ -214,10 +204,10 @@ const ProductDialog = ({ visible, onHide, showToast }) => {
           onClick={saveProduct}
           className="p-button-text"
           style={{
-            backgroundColor: "black", // Set background color to black
-            color: "white", // Adjust text color for better contrast
-            border: "none", // Remove border if desired
-            borderRadius: "4px", // Optional rounded corners
+            backgroundColor: "black",
+            color: "white",
+            border: "none",
+            borderRadius: "4px",
             marginTop: "30px",
           }}
         />

@@ -13,6 +13,7 @@ import AdminScreen from './screens/admin_screen/AdminScreen';
 import ProductListPage from './screens/admin_screen/product_screen/ProductListPage';
 import OrderListPage from './screens/admin_screen/order_screen/OrderListPage';
 import UserListPage from './screens/admin_screen/user_screen/UserListPage';
+import './App.css';
 
 function App() {
   const [isNavbarExpanded, setIsNavbarExpanded] = useState(false);

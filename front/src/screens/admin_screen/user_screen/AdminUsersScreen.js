@@ -29,7 +29,7 @@ const AdminUsersScreen = () => {
   };
 
   return (
-    <Panel header="Gestión de Usuarios" style={{ width: '80%', margin: '20px auto', height: '100%' }}>
+    <Panel header="Gestión de Usuarios" style={{ width: '60%', margin: '20px auto', height: '30%' }}>
       <div className="button-container">
         <Button
           label="Añadir Usuario"

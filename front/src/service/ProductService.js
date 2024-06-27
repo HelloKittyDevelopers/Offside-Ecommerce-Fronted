@@ -26,13 +26,26 @@ class ProductService {
   }
 
   async save(product) {
+    const formData = new FormData();
+    formData.append("product_name", product.product_name);
+    formData.append("price", product.price);
+    formData.append("description", product.description);
+    formData.append("type_category", product.type_category.id_type);
+    product.categories.forEach((category) =>
+      formData.append("categories", category.id_category)
+    );
+    product.images.forEach((image) => 
+      formData.append('images', image)
+    );
+
     const config = {
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'multipart/form-data'
       }
     };
+
     try {
-      const response = await axios.post(this.baseUrl, JSON.stringify(product), config);
+      const response = await axios.post(this.baseUrl, formData, config);
       return response.data;
     } catch (error) {
       console.error('Error in ProductService save:', error);
@@ -54,16 +67,39 @@ class ProductService {
   }
 
   async update(id_product, product) {
+    const formData = new FormData();
+    formData.append("product_name", product.product_name);
+    formData.append("price", product.price);
+    formData.append("description", product.description);
+    formData.append("type_category", product.type_category);
+    product.categories.forEach((category) =>
+      formData.append("categories", category)
+    );
+    product.images.forEach((image) => 
+      formData.append('images', image)
+    );
+
     const config = {
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'multipart/form-data'
       }
     };
+
     try {
-      const response = await axios.put(`${this.baseUrl}${id_product}/`, JSON.stringify(product), config);
+      const response = await axios.put(`${this.baseUrl}${id_product}/`, formData, config);
       return response.data;
     } catch (error) {
       console.error('Error in ProductService update:', error);
+      throw error;
+    }
+  }
+
+  async getCategoriesForProduct(productId) {
+    try {
+      const response = await axios.get(`${this.baseUrl}${productId}/categories/`);
+      return response.data;
+    } catch (error) {
+      console.error('Error fetching categories for product:', error);
       throw error;
     }
   }
