@@ -31,10 +31,11 @@ class UserService {
             }
         };
         try {
+            console.log('Registering user with data:', user); // Añadir log para verificar los datos
             const response = await axios.post(`${this.baseUrl}register/`, JSON.stringify(user), config);
             return response.data;
         } catch (error) {
-            console.error('Error in UserService register:', error);
+            console.error('Error in UserService register:', error.response ? error.response.data : error.message); // Mejorar logging
             throw error;
         }
     }

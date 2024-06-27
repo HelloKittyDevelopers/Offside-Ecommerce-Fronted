@@ -1,6 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit';
 import {productReducer} from './reducers/productReducers';
-import {userLoginReducer } from './reducers/userReducers'
+import {userLoginReducer, userRe, userRegisterReducer } from './reducers/userReducers'
 import {productListReducer} from './reducers/productReducers'; // Asegúrate de que este sea el nombre correcto del reducer
 import productDetailsReducer from './reducers/productDetailReducer';
 import { cartReducer } from './reducers/cartReducer';
@@ -29,6 +29,7 @@ const store = configureStore({
         productDetails: productDetailsReducer,
         cart: cartReducer,
         userLogin: userLoginReducer,
+        userRegister: userRegisterReducer,
     },
     preloadedState,
     devTools: process.env.NODE_ENV !== 'production',
