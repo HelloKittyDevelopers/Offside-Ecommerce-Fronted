@@ -1,7 +1,7 @@
 import React from 'react';
 import { Nav, Button } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
-import { FaBars, FaBox, FaUsers, FaClipboardList } from 'react-icons/fa';
+import { FaBars, FaBox, FaUsers, FaClipboardList, FaTags, FaChartBar, FaRuler } from 'react-icons/fa';
 import './AdminNavbar.css';
 
 function AdminNavbar({ isExpanded, setIsExpanded }) {
@@ -28,6 +28,18 @@ function AdminNavbar({ isExpanded, setIsExpanded }) {
           </LinkContainer>
           <LinkContainer to="/admin/orders" onClick={collapseNavbar}>
             <Nav.Link><FaClipboardList /> <span className="ms-3">Órdenes</span></Nav.Link>
+          </LinkContainer>
+          <LinkContainer to="/admin/types" onClick={collapseNavbar}>
+            <Nav.Link><FaTags /> <span className="ms-3">Types</span></Nav.Link>
+          </LinkContainer>
+          <LinkContainer to="/admin/categories" onClick={collapseNavbar}>
+            <Nav.Link><FaTags /> <span className="ms-3">Categories</span></Nav.Link>
+          </LinkContainer>
+          <LinkContainer to="/admin/sizes" onClick={collapseNavbar}>
+            <Nav.Link><FaRuler /> <span className="ms-3">Sizes</span></Nav.Link>
+          </LinkContainer>
+          <LinkContainer to="/admin/reports" onClick={collapseNavbar}>
+            <Nav.Link><FaChartBar /> <span className="ms-3">Reportes</span></Nav.Link>
           </LinkContainer>
         </>
       )}
