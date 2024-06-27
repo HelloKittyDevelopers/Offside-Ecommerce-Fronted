@@ -18,6 +18,7 @@ class OrderService {
   async getOrderById(id_order) {
     try {
       const response = await axios.get(`${this.baseUrl}${id_order}/`);
+      console.log(response.data)
       return response.data;
     } catch (error) {
       console.error('Error in OrderService getOrderById:', error);
@@ -31,7 +32,7 @@ class OrderService {
         'Content-Type': 'application/json'
       }
     };
-    console.log('Saving order:', order);  // Log the data being sent
+    console.log('Saving order:', order); 
     try {
       const response = await axios.post(this.baseUrl, JSON.stringify(order), config);
       return response.data;
@@ -57,7 +58,7 @@ class OrderService {
         'Content-Type': 'application/json'
       }
     };
-    console.log('Updating order:', order);  // Log the data being sent
+    console.log('Updating order:', order); 
     try {
       const response = await axios.put(`${this.baseUrl}${id_order}/`, JSON.stringify(order), config);
       return response.data;
