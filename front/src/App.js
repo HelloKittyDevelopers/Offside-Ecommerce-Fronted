@@ -13,6 +13,9 @@ import AdminScreen from './screens/admin_screen/AdminScreen';
 import ProductListPage from './screens/admin_screen/product_screen/ProductListPage';
 import OrderListPage from './screens/admin_screen/order_screen/OrderListPage';
 import UserListPage from './screens/admin_screen/user_screen/UserListPage';
+import TypeScreen from './screens/admin_screen/filter_screen/typeScreen';
+import CategoryScreen from './screens/admin_screen/filter_screen/categoryScreen';
+import SizeScreen from './screens/admin_screen/filter_screen/sizeScreen';
 import './App.css';
 
 function App() {
@@ -42,6 +45,9 @@ function App() {
                         <Route path="/users/list/" element={<UserListPage />} />
                         <Route path="/orders/" element={<AdminOrdersScreen />} />
                         <Route path="/orders/list/" element={<OrderListPage />} />
+                        <Route path="/types/" element={<TypeScreen />} />
+                        <Route path="/categories/" element={<CategoryScreen />} />
+                        <Route path="/sizes/" element={<SizeScreen />} />
                         <Route path="/" element={<AdminScreen />} />
                       </Routes>
                     </Container>
