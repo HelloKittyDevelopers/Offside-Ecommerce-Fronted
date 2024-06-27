@@ -96,7 +96,7 @@ const TypeScreen = () => {
               placeholder="New type"
               style={{ width: '100%', marginBottom: '10px' }}
             />
-            <Button icon="pi pi-plus" onClick={addNewType} className="p-button-primary" style={{ height: '42px', width: '42px'}} />
+            <Button icon="pi pi-plus" onClick={addNewType} className="p-button-primary" style={{ height: '42px', width: '42px', backgroundColor:"Black"}} />
           </div>
         </div>
       </div>

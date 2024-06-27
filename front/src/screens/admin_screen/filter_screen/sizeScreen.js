@@ -96,7 +96,7 @@ const SizeScreen = () => {
               placeholder="New size"
               style={{ width: '100%', marginBottom: '10px' }}
             />
-            <Button icon="pi pi-plus" onClick={addNewSize} className="p-button-primary" style={{ height: '42px', width: '42px'}} />
+            <Button icon="pi pi-plus" onClick={addNewSize} className="p-button-primary" style={{ height: '42px', width: '42px', backgroundColor: "black"}} />
           </div>
         </div>
       </div>

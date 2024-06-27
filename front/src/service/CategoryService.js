@@ -16,6 +16,10 @@ class CategoryService {
   }
 
   async getCategoryById(id_category) {
+    if (!id_category) {
+      console.warn('getCategoryById called with undefined id_category');
+      return null;
+    }
     try {
       const response = await axios.get(`${this.baseUrl}${id_category}/`);
       return response.data;

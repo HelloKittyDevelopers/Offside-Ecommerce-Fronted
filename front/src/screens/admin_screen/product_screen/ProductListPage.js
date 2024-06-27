@@ -7,6 +7,7 @@ import { ConfirmDialog, confirmDialog } from "primereact/confirmdialog";
 import { Toast } from "primereact/toast";
 import ProductService from "../../../service/ProductService";
 import ProductEditDialog from "./ProductEditDialog";
+import TypeService from "../../../service/TypeService";
 
 const ProductListPage = () => {
   const [products, setProducts] = useState([]);
@@ -15,28 +16,47 @@ const ProductListPage = () => {
   const [editDialogVisible, setEditDialogVisible] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState(null);
   const toast = useRef(null);
+  const [types, setTypes] = useState([]);
 
-  useEffect(() => {
-    loadProducts();
-  }, []);
-
-  const loadProducts = () => {
-    ProductService.getAll()
-      .then((data) => {
-        setProducts(data);
-        setLoading(false);
-      })
-      .catch((error) => {
-        setLoading(false);
-        toast.current.show({
-          severity: "error",
-          summary: "Error",
-          detail: "No se pudieron cargar los productos",
-          life: 3000,
-        });
-      });
+  const loadProducts = async () => {
+    setLoading(true);
+    try {
+      const productsData = await ProductService.getAll();
+      const productsWithTypes = await Promise.all(
+        productsData.map(async (product) => {
+          const type = await TypeService.getTypeById(product.type_category);
+          return { ...product, type_name: type.type };
+        })
+      );
+      
+      console.log(productsWithTypes);
+      setProducts(productsWithTypes);
+      setLoading(false);
+    } catch (error) {
+      console.error("Error fetching products:", error);
+      setLoading(false);
+    }
   };
 
+  const loadTypes = async () => {
+    try {
+      const typesData = await TypeService.getAll();
+      setTypes(typesData);
+    } catch (error) {
+      console.error("Error fetching types:", error);
+    }
+  };
+
+  useEffect(() => {
+    const fetchData = async () => {
+      await loadTypes();
+      await loadProducts();
+    };
+
+    fetchData();
+  }, []);
+
+  
   const deleteProduct = (id_product) => {
     confirmDialog({
       message: "¿Estás seguro de que quieres eliminar este producto?",
@@ -46,29 +66,28 @@ const ProductListPage = () => {
       reject: () => rejectDelete(),
     });
   };
-
-  const acceptDelete = (id_product) => {
-    ProductService.delete(id_product)
-      .then(() => {
-        loadProducts();
-        toast.current.show({
-          severity: "success",
-          summary: "Éxito",
-          detail: "Producto eliminado",
-          life: 3000,
-        });
-      })
-      .catch((error) => {
-        console.error("Error deleting product:", error);
-        toast.current.show({
-          severity: "error",
-          summary: "Error",
-          detail: "No se pudo eliminar el producto",
-          life: 3000,
-        });
+  
+  const acceptDelete = async (id_product) => {
+    try {
+      await ProductService.delete(id_product);
+      loadProducts();  // Ensure this is called to refresh the product list
+      toast.current.show({
+        severity: "success",
+        summary: "Éxito",
+        detail: "Producto eliminado",
+        life: 3000,
       });
+    } catch (error) {
+      console.error("Error deleting product:", error);
+      toast.current.show({
+        severity: "error",
+        summary: "Error",
+        detail: "No se pudo eliminar el producto",
+        life: 3000,
+      });
+    }
   };
-
+  
   const rejectDelete = () => {
     toast.current.show({
       severity: "info",
@@ -76,7 +95,7 @@ const ProductListPage = () => {
       detail: "Eliminación cancelada",
       life: 3000,
     });
-  };
+  };  
 
   const editProduct = (product) => {
     setSelectedProduct(product);
@@ -214,22 +233,7 @@ const ProductListPage = () => {
           }}
         />
         <Column
-          field="type_category.category"
-          header="Categoría"
-          sortable
-          style={{
-            maxWidth: "100px",
-            overflow: "hidden",
-            textOverflow: "ellipsis",
-          }}
-          bodyStyle={{
-            maxWidth: "100px",
-            overflow: "hidden",
-            textOverflow: "ellipsis",
-          }}
-        />
-        <Column
-          field="type_category.type"
+          field="type_name"
           header="Tipo"
           sortable
           style={{
