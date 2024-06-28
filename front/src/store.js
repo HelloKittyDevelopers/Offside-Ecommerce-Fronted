@@ -19,7 +19,7 @@ const userInfoFromStorage = getLocalStorageItem('userInfo', null);
 
 const preloadedState = {
     cart: {
-        cartItems: cartItemsFromStorage,shippingAddress:shippingAddressFromStorage
+        cartItems: cartItemsFromStorage
     },
 };
 

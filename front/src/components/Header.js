@@ -8,7 +8,6 @@ import Catalog from './Catalog';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import { useDispatch, useSelector } from 'react-redux';
 import { logout } from '../actions/userActions';
-import logo from '../assets/image.png';
 
 function Header() {
     const userLogin = useSelector((state) => state.userLogin);
