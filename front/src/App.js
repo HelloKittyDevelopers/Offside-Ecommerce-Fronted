@@ -9,7 +9,6 @@ import ProductScreen from './screens/ProductScreen';
 import CartScreen from './screens/CartScreen';
 import ProductListingScreen from './screens/ProductListingScreen';
 import AdminProductsScreen from './screens/admin_screen/product_screen/AdminProductsScreen';
-import AdminUsersScreen from './screens/admin_screen/user_screen/AdminUsersScreen';
 import AdminScreen from './screens/admin_screen/AdminScreen';
 import ProductListPage from './screens/admin_screen/product_screen/ProductListPage';
 import TypeScreen from './screens/admin_screen/filter_screen/typeScreen';
@@ -45,7 +44,6 @@ function App() {
                         <Routes>
                           <Route path="products/" element={<AdminProductsScreen />} />
                           <Route path="products/list/" element={<ProductListPage />} />
-                          <Route path="users/" element={<AdminUsersScreen />} />
                           <Route path="orders/" element={<OrdersScreen />} />
                           <Route path="orders/:id_order" element={<OrderDetailScreen />} />
                           <Route path="types/" element={<TypeScreen />} />
