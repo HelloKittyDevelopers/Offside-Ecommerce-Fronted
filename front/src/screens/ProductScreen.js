@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { Row, Col, Image, ListGroup, Button, Card, Form } from 'react-bootstrap';
+import { Row, Col, Image, ListGroup, Button, Card, Form, Alert } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { listProductDetails } from '../actions/productActions';
+import { addToCart } from '../actions/CartActions';
 import Rating from '../components/Rating';
 
 function ProductScreen() {
@@ -16,6 +17,7 @@ function ProductScreen() {
     const [size, setSize] = useState('');
     const [qty, setQty] = useState('1');
     const [countInStock, setCountInStock] = useState(0);
+    const [showConfirmation, setShowConfirmation] = useState(false);
 
     useEffect(() => {
         if (id_product) {
@@ -35,8 +37,18 @@ function ProductScreen() {
         }
     }, [size, product.sizes]);
 
-    const addTocartHandler = () => {
-        navigate(`/cart/${id_product}?qty=${qty}&size=${size}`);
+    const goToCartHandler = () => {
+        navigate(`/cart`);
+    };
+
+    const addToCartHandler = () => {
+        const images = product.images// Obtener URLs de las imágenes
+        dispatch(addToCart(id_product, Number(qty), size, countInStock, images));
+        setShowConfirmation(true);
+        setTimeout(() => {
+            setShowConfirmation(false);
+            goToCartHandler();
+        }, 1500); // Mostrar el mensaje durante 1.5 segundos antes de redirigir
     };
 
     if (loading) {
@@ -110,7 +122,7 @@ function ProductScreen() {
                         )}
                         <ListGroup.Item className="d-flex justify-content-center">
                             <Button
-                                onClick={addTocartHandler}
+                                onClick={addToCartHandler}
                                 className="btn btn-primary btn-lg btn-block"
                                 type="button"
                                 disabled={countInStock === 0}
@@ -133,6 +145,13 @@ function ProductScreen() {
                     </ListGroup>
                 </Card>
             </Col>
+            {showConfirmation && (
+                <Col md={12}>
+                    <Alert variant="success" className="mt-3">
+                        Product added to cart!
+                    </Alert>
+                </Col>
+            )}
         </Row>
     );
 }

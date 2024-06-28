@@ -6,7 +6,7 @@ class OrderItemService {
   async getAll() {
     try {
       const response = await axios.get(API_URL);
-      console.log(response.data)
+      console.log(response.data);
       return response.data;
     } catch (error) {
       console.error('Error in OrderItemService getAll:', error.message);
@@ -14,16 +14,27 @@ class OrderItemService {
     }
   }
 
-  async getOrderItemById(id_order) {
+  async getOrderItemById(id_order_item) {
     try {
-      const response = await axios.get(`${API_URL}${id_order}/`);
-      console.log(response.data)
+      const response = await axios.get(`${API_URL}${id_order_item}/`);
+      console.log(response.data);
       return response.data;
     } catch (error) {
-      console.error(`Error in OrderItemService getOrderItemById(${id_order}):`, error.message);
+      console.error(`Error in OrderItemService getOrderItemById(${id_order_item}):`, error.message);
+      throw error;
+    }
+  }
+
+  async getOrderItemsByOrderId(id_order) {
+    try {
+      const response = await axios.get(`${API_URL}?order_id=${id_order}`);
+      console.log(response.data);
+      return response.data;
+    } catch (error) {
+      console.error(`Error in OrderItemService getOrderItemsByOrderId(${id_order}):`, error.message);
       throw error;
     }
   }
 }
 
-export default OrderItemService;
+export default new OrderItemService();

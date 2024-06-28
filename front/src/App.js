@@ -6,18 +6,22 @@ import Footer from './components/Footer';
 import AdminNavbar from './components/AdminNavbar';
 import HomeScreen from './screens/HomeScreen';
 import ProductScreen from './screens/ProductScreen';
+import CartScreen from './screens/CartScreen';
+import ProductListingScreen from './screens/ProductListingScreen';
 import AdminProductsScreen from './screens/admin_screen/product_screen/AdminProductsScreen';
-import AdminUsersScreen from './screens/admin_screen/user_screen/AdminUsersScreen';
 import AdminScreen from './screens/admin_screen/AdminScreen';
 import ProductListPage from './screens/admin_screen/product_screen/ProductListPage';
-import UserListPage from './screens/admin_screen/user_screen/UserListPage';
 import TypeScreen from './screens/admin_screen/filter_screen/typeScreen';
+import ProductTypesScreen from './screens/ProductTypesScreen';
 import CategoryScreen from './screens/admin_screen/filter_screen/categoryScreen';
 import SizeScreen from './screens/admin_screen/filter_screen/sizeScreen';
 import OrdersScreen from './screens/admin_screen/order_screen/AdminOrdersScreen';
 import OrderDetailScreen from './screens/admin_screen/order_screen/OrderDetailScreen';
-import ShippingScreen from './screens/ShippingScreen'; // Correct the import path
+import ShippingScreen from './screens/ShippingScreen'; 
+import PaymentScreen from './screens/PaymentScreen';
 import './App.css';
+import PlaceOrderScreen from './screens/PlaceOrderScreen';
+
 
 function App() {
   const [isNavbarExpanded, setIsNavbarExpanded] = useState(false);
@@ -43,8 +47,6 @@ function App() {
                         <Routes>
                           <Route path="products/" element={<AdminProductsScreen />} />
                           <Route path="products/list/" element={<ProductListPage />} />
-                          <Route path="users/" element={<AdminUsersScreen />} />
-                          <Route path="users/list/" element={<UserListPage />} />
                           <Route path="orders/" element={<OrdersScreen />} />
                           <Route path="orders/:id_order" element={<OrderDetailScreen />} />
                           <Route path="types/" element={<TypeScreen />} />
@@ -69,8 +71,14 @@ function App() {
                     <Routes>
                       <Route path="product/:id_product/" element={<ProductScreen />} />
                       <Route path="home/" element={<HomeScreen />} />
+                      <Route path="/type/" element={<ProductTypesScreen />} />
+            	        <Route path="/type/:type/" element={<ProductListingScreen />} />
+            	        <Route path="/" element={<Navigate to="/home/" />} />
+            	        <Route path="/cart" element={<CartScreen />} exact/>
                       <Route path="/" element={<Navigate to="/home/" />} />
-                      <Route path="shipping" element={<ShippingScreen />} />
+                      <Route path="/shipping" element={<ShippingScreen />} />
+                      <Route path="/payment" element={<PaymentScreen />} />
+                      <Route path="/placeorder" element={<PlaceOrderScreen />} />
                     </Routes>
                   </Container>
                 </main>

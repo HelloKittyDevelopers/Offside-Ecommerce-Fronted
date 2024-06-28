@@ -18,7 +18,6 @@ class OrderService {
   async getOrderById(id_order) {
     try {
       const response = await axios.get(`${this.baseUrl}${id_order}/`);
-      console.log(response.data)
       return response.data;
     } catch (error) {
       console.error('Error in OrderService getOrderById:', error);
