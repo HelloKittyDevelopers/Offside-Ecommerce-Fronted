@@ -14,11 +14,12 @@ import AdminScreen from './screens/admin_screen/AdminScreen';
 import ProductListPage from './screens/admin_screen/product_screen/ProductListPage';
 import UserListPage from './screens/admin_screen/user_screen/UserListPage';
 import TypeScreen from './screens/admin_screen/filter_screen/typeScreen';
+import ProductTypesScreen from './screens/ProductTypesScreen';
 import CategoryScreen from './screens/admin_screen/filter_screen/categoryScreen';
 import SizeScreen from './screens/admin_screen/filter_screen/sizeScreen';
 import OrdersScreen from './screens/admin_screen/order_screen/AdminOrdersScreen';
 import OrderDetailScreen from './screens/admin_screen/order_screen/OrderDetailScreen';
-import ShippingScreen from './screens/ShippingScreen'; // Correct the import path
+import ShippingScreen from './screens/ShippingScreen';
 import './App.css';
 
 function App() {
@@ -71,9 +72,10 @@ function App() {
                     <Routes>
                       <Route path="product/:id_product/" element={<ProductScreen />} />
                       <Route path="home/" element={<HomeScreen />} />
-            	      <Route path="/type/:type/" element={<ProductListingScreen />} />
-            	      <Route path="/" element={<Navigate to="/home/" />} />
-            	      <Route path="/cart" element={<CartScreen />} exact/>
+                      <Route path="/type/" element={<ProductTypesScreen />} />
+            	        <Route path="/type/:type/" element={<ProductListingScreen />} />
+            	        <Route path="/" element={<Navigate to="/home/" />} />
+            	        <Route path="/cart" element={<CartScreen />} exact/>
                       <Route path="/" element={<Navigate to="/home/" />} />
                       <Route path="shipping" element={<ShippingScreen />} />
                     </Routes>

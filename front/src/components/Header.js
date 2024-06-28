@@ -4,6 +4,7 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import { LinkContainer } from 'react-router-bootstrap';
 import logo from '../assets/image.png'
+import Catalog from './Catalog';
 
 function Header() {
     return (
@@ -22,11 +23,9 @@ function Header() {
                         </Navbar.Brand>
                     </LinkContainer>
                     <Nav className="me-auto">
-                        <LinkContainer to="/retros">
-                            <Nav.Link>Retro Kits</Nav.Link>
-                        </LinkContainer>
+                        <Catalog/>
                         <LinkContainer to="/FAQ">
-                            <Nav.Link>FAQ</Nav.Link>
+                            <Nav.Link className='catalog-toggle'>FAQ</Nav.Link>
                         </LinkContainer>
                     </Nav>
                     <Nav className="ml-auto">
