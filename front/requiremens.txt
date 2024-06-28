@@ -4,3 +4,6 @@ npm install bootstrap bootstrap
 npm install react-bootstrap bootstrap
 npm install typescript
 npm install yarn
+yarn add redux react-redux redux-thunk redux-devtools-extension
+npm install react-icons
+npm install primereact primeicons

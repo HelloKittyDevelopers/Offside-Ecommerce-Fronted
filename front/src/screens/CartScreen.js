@@ -12,7 +12,7 @@ function CartScreen() {
     const id = searchParams.get('id');
     const qty = parseInt(searchParams.get('qty')) || 1;
     const size = searchParams.get('size');
-
+    const navigate= useNavigate()
     const dispatch = useDispatch();
 
     const cart = useSelector(state => state.cart);
@@ -30,7 +30,7 @@ function CartScreen() {
     };
 
     const checkoutHandler = () => {
-        // Aquí agregas tu lógica para proceder al checkout
+        navigate('/login?redirect=shipping')
     };
 
     return (
