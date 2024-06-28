@@ -42,8 +42,8 @@ function ProductScreen() {
     };
 
     const addToCartHandler = () => {
-        const images = product.images ? product.images.map(img => img.image) : []; // Obtener URLs de las imágenes
-        dispatch(addToCart(id_product, Number(qty), size, countInStock, product.images));
+        const images = product.images// Obtener URLs de las imágenes
+        dispatch(addToCart(id_product, Number(qty), size, countInStock, images));
         setShowConfirmation(true);
         setTimeout(() => {
             setShowConfirmation(false);
