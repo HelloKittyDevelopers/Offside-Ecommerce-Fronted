@@ -21,6 +21,9 @@ const preloadedState = {
     cart: {
         cartItems: cartItemsFromStorage
     },
+    userLogin: {
+        userInfo: userInfoFromStorage
+    },
 };
 
 const store = configureStore({
