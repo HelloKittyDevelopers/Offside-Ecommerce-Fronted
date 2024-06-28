@@ -60,7 +60,6 @@ const OrderDetailScreen = () => {
         <p>Shipping Price: {order.shipping_price + '$'}</p>
         <p>Taxes: {order.taxes+'%'}</p>
         <p>Order Status: {orderState.order_state}</p>
-        <p>Address: {order.address}</p>
       </div>
       <div>
         <h3>Order Items</h3>
