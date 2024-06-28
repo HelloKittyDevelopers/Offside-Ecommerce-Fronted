@@ -49,8 +49,16 @@ function ProductListingScreen() {
         setPageNumber(pageNumber);
     };
 
-    // Calculate total number of pages
-    const totalPages = Math.ceil(products.length / productsPerPage);
+    const calculateTotalPages = (products, productsPerPage) => {
+        if (!products || typeof products.length === 'undefined') {
+            return 1; // Return 0 if products or products.length is undefined
+        }
+        else{
+          return Math.ceil(products.length / productsPerPage);  
+        }
+    };
+
+    const totalPages = calculateTotalPages(products, productsPerPage);
 
     //Pagination Logic
     const paginationButtons = [];
@@ -68,9 +76,14 @@ function ProductListingScreen() {
 
     // Divide products into sets based on productsPerPage
     const dividedProducts = [];
-    for (let i = 0; i < products.length; i += productsPerPage) {
+    if(!products || typeof products.length === 'undefined'){
+        return 0
+    } else {
+      for (let i = 0; i < products.length; i += productsPerPage) {
         dividedProducts.push(products.slice(i, i + productsPerPage));
+     }  
     }
+    
 
     // Select current products to render based on pageNumber
     const currentProducts = dividedProducts[pageNumber - 1] || [];
