@@ -7,11 +7,15 @@ import {productListingReducer} from './reducers/ProductListingReducer';
 const cartItemsFromStorage = localStorage.getItem('cartItems')
     ? JSON.parse(localStorage.getItem('cartItems'))
     : [];
+const shippingAddressFromStorage=localStorage.getItem('shippingAddress')
+    ? JSON.parse(localStorage.getItem('shippingAddress')): {}
 
 const preloadedState = {
     cart: {
-        cartItems: cartItemsFromStorage,
+        cartItems: cartItemsFromStorage,shippingAddress:shippingAddressFromStorage
     },
+    
+    
 };
 
 const store = configureStore({

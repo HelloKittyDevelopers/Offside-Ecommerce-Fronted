@@ -17,8 +17,11 @@ import CategoryScreen from './screens/admin_screen/filter_screen/categoryScreen'
 import SizeScreen from './screens/admin_screen/filter_screen/sizeScreen';
 import OrdersScreen from './screens/admin_screen/order_screen/AdminOrdersScreen';
 import OrderDetailScreen from './screens/admin_screen/order_screen/OrderDetailScreen';
-import ShippingScreen from './screens/ShippingScreen';
+import ShippingScreen from './screens/ShippingScreen'; 
+import PaymentScreen from './screens/PaymentScreen';
 import './App.css';
+import PlaceOrderScreen from './screens/PlaceOrderScreen';
+
 
 function App() {
   const [isNavbarExpanded, setIsNavbarExpanded] = useState(false);
@@ -73,7 +76,9 @@ function App() {
             	        <Route path="/" element={<Navigate to="/home/" />} />
             	        <Route path="/cart" element={<CartScreen />} exact/>
                       <Route path="/" element={<Navigate to="/home/" />} />
-                      <Route path="shipping" element={<ShippingScreen />} />
+                      <Route path="/shipping" element={<ShippingScreen />} />
+                      <Route path="/payment" element={<PaymentScreen />} />
+                      <Route path="/placeorder" element={<PlaceOrderScreen />} />
                     </Routes>
                   </Container>
                 </main>
