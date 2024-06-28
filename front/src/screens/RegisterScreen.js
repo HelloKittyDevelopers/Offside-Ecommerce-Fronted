@@ -1,10 +1,12 @@
+// RegisterScreen.js
+
 import React, { useState, useEffect } from 'react';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Form, Button, Row, Col } from 'react-bootstrap';
 import Loader from '../components/Loader';
 import Message from '../components/Message';
 import { useDispatch, useSelector } from 'react-redux';
-import { register, login } from '../actions/userActions';
+import { register } from '../actions/userActions';
 import FormContainer from '../components/FormContainer';
 
 function RegisterScreen() {
@@ -16,7 +18,6 @@ function RegisterScreen() {
     const [confirmPassword, setConfirmPassword] = useState('');
     const [message, setMessage] = useState('');
 
-    const location = useLocation();
     const navigate = useNavigate(); // Obtener función de navegación
     const dispatch = useDispatch();
 
@@ -27,7 +28,7 @@ function RegisterScreen() {
 
     useEffect(() => {
         if (userInfo && userInfo.username) {
-            navigate(redirect); // Redirigir a la página de inicio
+            navigate(redirect); // Redirigir a la página de inicio si el registro es exitoso
         }
     }, [userInfo, navigate, redirect]);
 
@@ -37,11 +38,9 @@ function RegisterScreen() {
             setMessage('Passwords do not match');
         } else {
             try {
-                await dispatch(register(firstName, lastName, email, username, password));
-                await dispatch(login(username, password)); // Opcional: Iniciar sesión automáticamente después del registro
-                setMessage('Registration successful'); // Establecer mensaje de éxito
+                dispatch(register(firstName, lastName, email, username, password));
             } catch (error) {
-                setMessage(error.message); // Establecer mensaje de error
+                setMessage(error.message); // Mostrar mensaje de error
             }
         }
     };
