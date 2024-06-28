@@ -1,0 +1,22 @@
+version: '3.9'
+
+services:
+  api:
+    build: ./
+    container_name: api_c
+    ports:
+      - '4000:4000'
+    volumes:
+      - ./api:/api
+      - ./app/node_modules
+
+  front:
+    build: ./
+    container_name: ecommerce_front_container
+    ports:
+      - '3000:3000'
+    stdin_open: true
+    tty: true
+    volumes:
+      - .:/app
+      - /app/node_modules
