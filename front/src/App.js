@@ -12,7 +12,6 @@ import AdminProductsScreen from './screens/admin_screen/product_screen/AdminProd
 import AdminUsersScreen from './screens/admin_screen/user_screen/AdminUsersScreen';
 import AdminScreen from './screens/admin_screen/AdminScreen';
 import ProductListPage from './screens/admin_screen/product_screen/ProductListPage';
-import UserListPage from './screens/admin_screen/user_screen/UserListPage';
 import TypeScreen from './screens/admin_screen/filter_screen/typeScreen';
 import ProductTypesScreen from './screens/ProductTypesScreen';
 import CategoryScreen from './screens/admin_screen/filter_screen/categoryScreen';
@@ -47,7 +46,6 @@ function App() {
                           <Route path="products/" element={<AdminProductsScreen />} />
                           <Route path="products/list/" element={<ProductListPage />} />
                           <Route path="users/" element={<AdminUsersScreen />} />
-                          <Route path="users/list/" element={<UserListPage />} />
                           <Route path="orders/" element={<OrdersScreen />} />
                           <Route path="orders/:id_order" element={<OrderDetailScreen />} />
                           <Route path="types/" element={<TypeScreen />} />
