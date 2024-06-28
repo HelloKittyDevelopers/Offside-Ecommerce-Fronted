@@ -7,7 +7,11 @@ const Product = ({ product }) => {
   return (
     <Card className='my-3 p-3 rounded'>
       <Link to={`/product/${product.id_product}`}>
-        <Card.Img src={product.images[0]} variant='top' />
+        {product.images && product.images.length > 0 ? (
+          <Card.Img src={product.images[0].image} variant='top' />
+        ) : (
+          <Card.Img src='/placeholder-image.jpg' variant='top' /> // Replace with your placeholder image
+        )}
       </Link>
 
       <Card.Body>
