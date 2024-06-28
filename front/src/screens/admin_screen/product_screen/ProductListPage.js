@@ -8,6 +8,7 @@ import { Toast } from "primereact/toast";
 import ProductService from "../../../service/ProductService";
 import ProductEditDialog from "./ProductEditDialog";
 import TypeService from "../../../service/TypeService";
+import CategoryService from "../../../service/CategoryService";
 
 const ProductListPage = () => {
   const [products, setProducts] = useState([]);
@@ -22,18 +23,31 @@ const ProductListPage = () => {
     setLoading(true);
     try {
       const productsData = await ProductService.getAll();
-      const productsWithTypes = await Promise.all(
+      const allCategories = await CategoryService.getAll(); // Get all categories
+
+      const productsWithDetails = await Promise.all(
         productsData.map(async (product) => {
           const type = await TypeService.getTypeById(product.type_category);
-          return { ...product, type_name: type.type };
+
+          // Check if product.categories exists and is an array
+          const productCategories = Array.isArray(product.categories)
+            ? allCategories.filter((cat) =>
+                product.categories.includes(cat.id_category)
+              )
+            : [];
+
+          return {
+            ...product,
+            type_name: type.type,
+          };
         })
       );
-      
-      console.log(productsWithTypes);
-      setProducts(productsWithTypes);
-      setLoading(false);
+
+      console.log(productsWithDetails);
+      setProducts(productsWithDetails);
     } catch (error) {
       console.error("Error fetching products:", error);
+    } finally {
       setLoading(false);
     }
   };
@@ -56,7 +70,6 @@ const ProductListPage = () => {
     fetchData();
   }, []);
 
-  
   const deleteProduct = (id_product) => {
     confirmDialog({
       message: "Are you sure you want to delete this product?",
@@ -66,11 +79,11 @@ const ProductListPage = () => {
       reject: () => rejectDelete(),
     });
   };
-  
+
   const acceptDelete = async (id_product) => {
     try {
       await ProductService.delete(id_product);
-      loadProducts();  // Ensure this is called to refresh the product list
+      loadProducts(); // Ensure this is called to refresh the product list
       toast.current.show({
         severity: "success",
         summary: "Success",
@@ -87,7 +100,7 @@ const ProductListPage = () => {
       });
     }
   };
-  
+
   const rejectDelete = () => {
     toast.current.show({
       severity: "info",
@@ -95,7 +108,7 @@ const ProductListPage = () => {
       detail: "Deletion cancelled",
       life: 3000,
     });
-  };  
+  };
 
   const editProduct = (product) => {
     setSelectedProduct(product);
@@ -247,6 +260,7 @@ const ProductListPage = () => {
             textOverflow: "ellipsis",
           }}
         />
+
         <Column body={actionBodyTemplate} header="Actions" />
       </DataTable>
       <ProductEditDialog
@@ -260,5 +274,4 @@ const ProductListPage = () => {
     </div>
   );
 };
-
 export default ProductListPage;

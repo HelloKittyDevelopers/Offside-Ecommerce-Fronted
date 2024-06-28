@@ -24,7 +24,25 @@ class ProductService {
       throw error;
     }
   }
-
+  
+  async getStockByProductId(id_product) {
+    if (!id_product) {
+      console.warn('getStockByProductId called with undefined id_product');
+      return [];
+    }
+    try {
+      const response = await axios.get(`${this.baseUrl}${id_product}/stock/`);
+      return response.data;
+    } catch (error) {
+      if (error.response && error.response.status === 404) {
+        console.warn(`No stock found for product ${id_product}`);
+        return [{ size: 'N/A', quantity: 'No stock' }];
+      }
+      console.error('Error in ProductService getStockByProductId:', error);
+      throw error;
+    }
+  }
+  
   async save(product) {
     const formData = new FormData();
     formData.append("product_name", product.product_name);
