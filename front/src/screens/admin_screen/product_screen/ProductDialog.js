@@ -59,10 +59,10 @@ const ProductDialog = ({ visible, onHide, showToast }) => {
           setTypes([...types, response]);
           setProduct({ ...product, type_category: response });
           setNewType("");
-          showToast("success", "Éxito", "Nuevo tipo añadido");
+          showToast("success", "Success", "New type added");
         })
         .catch(() =>
-          showToast("error", "Error", "No se pudo añadir el nuevo tipo")
+          showToast("error", "Error", "Could not add new type")
         );
     }
   };
@@ -77,10 +77,10 @@ const ProductDialog = ({ visible, onHide, showToast }) => {
             categories: [...product.categories, response],
           });
           setNewCategory("");
-          showToast("success", "Éxito", "Nueva categoría añadida");
+          showToast("success", "Success", "New category added");
         })
         .catch(() =>
-          showToast("error", "Error", "No se pudo añadir la nueva categoría")
+          showToast("error", "Error", "Could not add new category")
         );
     }
   };
@@ -88,7 +88,7 @@ const ProductDialog = ({ visible, onHide, showToast }) => {
   const saveProduct = () => {
     ProductService.save(product)
       .then(() => {
-        showToast("success", "Éxito", "Producto añadido");
+        showToast("success", "Success", "Product added");
         onHide();
         setProduct({
           product_name: "",
@@ -101,15 +101,15 @@ const ProductDialog = ({ visible, onHide, showToast }) => {
       })
       .catch((error) => {
         console.error("Error saving product:", error);
-        showToast("error", "Error", "No se pudo añadir el producto");
+        showToast("error", "Error", "Could not add product");
       });
   };
 
   return (
-    <Dialog header="Añadir Producto" visible={visible} onHide={onHide}>
+    <Dialog header="Add Product" visible={visible} onHide={onHide}>
       <div className="p-fluid">
         <div className="p-field">
-          <label htmlFor="product_name">Nombre del Producto</label>
+          <label htmlFor="product_name">Product Name</label>
           <InputText
             id="product_name"
             value={product.product_name}
@@ -117,7 +117,7 @@ const ProductDialog = ({ visible, onHide, showToast }) => {
           />
         </div>
         <div className="p-field">
-          <label htmlFor="price">Precio</label>
+          <label htmlFor="price">Price</label>
           <InputNumber
             id="price"
             value={product.price}
@@ -128,7 +128,7 @@ const ProductDialog = ({ visible, onHide, showToast }) => {
           />
         </div>
         <div className="p-field">
-          <label htmlFor="description">Descripción</label>
+          <label htmlFor="description">Description</label>
           <InputTextarea
             id="description"
             value={product.description}
@@ -138,68 +138,67 @@ const ProductDialog = ({ visible, onHide, showToast }) => {
           />
         </div>
         <div className="p-field">
-          <label htmlFor="type_category">Tipo</label>
+          <label htmlFor="type_category">Type</label>
           <Dropdown
             id="type_category"
             value={product.type_category}
-            options={[...types, { id_type: "new", type: "Agregar nuevo tipo" }]}
+            options={[...types, { id_type: "new", type: "Add new type" }]}
             onChange={handleTypeChange}
             optionLabel="type"
-            placeholder="Selecciona un tipo"
+            placeholder="Select a type"
           />
           {product.type_category && product.type_category.id_type === "new" && (
             <div>
               <InputText
                 value={newType}
                 onChange={(e) => setNewType(e.target.value)}
-                placeholder="Nuevo tipo"
+                placeholder="New type"
               />
-              <Button label="Agregar" onClick={addNewType} />
+              <Button label="Add" onClick={addNewType} />
             </div>
           )}
         </div>
         <div className="p-field">
-          <label htmlFor="categories">Categorías</label>
+          <label htmlFor="categories">Categories</label>
           <MultiSelect
             id="categories"
             value={product.categories}
             options={[
               ...categories,
-              { id_category: "new", category: "Agregar nueva categoría" },
+              { id_category: "new", category: "Add new category" },
             ]}
             onChange={handleCategoriesChange}
             optionLabel="category"
-            placeholder="Selecciona categorías"
+            placeholder="Select categories"
           />
           {product.categories.some((cat) => cat.id_category === "new") && (
             <div>
               <InputText
                 value={newCategory}
                 onChange={(e) => setNewCategory(e.target.value)}
-                placeholder="Nueva categoría"
+                placeholder="New category"
               />
-              <Button label="Agregar" onClick={addNewCategory} />
+              <Button label="Add" onClick={addNewCategory} />
             </div>
           )}
         </div>
         <div className="p-field">
-          <label htmlFor="images">Imágenes</label>
+          <label htmlFor="images">Images</label>
           <FileUpload
             name="images"
             multiple
             accept="image/*"
-            //maxFileSize={1000000}
             onUpload={handleImageUpload}
             emptyTemplate={
               <p className="p-m-0">
-                Arrastra y suelta imágenes aquí para subirlas.
+                Drag and drop images here to upload.
               </p>
             }
             className="black-file-upload"
           />
         </div>
         <Button
-          label="Guardar"
+          label="Save"
           icon="pi pi-check"
           onClick={saveProduct}
           className="p-button-text"

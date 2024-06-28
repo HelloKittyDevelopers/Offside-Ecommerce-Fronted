@@ -59,8 +59,8 @@ const ProductListPage = () => {
   
   const deleteProduct = (id_product) => {
     confirmDialog({
-      message: "¿Estás seguro de que quieres eliminar este producto?",
-      header: "Confirmar eliminación",
+      message: "Are you sure you want to delete this product?",
+      header: "Confirm Deletion",
       icon: "pi pi-exclamation-triangle",
       accept: () => acceptDelete(id_product),
       reject: () => rejectDelete(),
@@ -73,8 +73,8 @@ const ProductListPage = () => {
       loadProducts();  // Ensure this is called to refresh the product list
       toast.current.show({
         severity: "success",
-        summary: "Éxito",
-        detail: "Producto eliminado",
+        summary: "Success",
+        detail: "Product deleted",
         life: 3000,
       });
     } catch (error) {
@@ -82,7 +82,7 @@ const ProductListPage = () => {
       toast.current.show({
         severity: "error",
         summary: "Error",
-        detail: "No se pudo eliminar el producto",
+        detail: "Could not delete the product",
         life: 3000,
       });
     }
@@ -91,8 +91,8 @@ const ProductListPage = () => {
   const rejectDelete = () => {
     toast.current.show({
       severity: "info",
-      summary: "Cancelado",
-      detail: "Eliminación cancelada",
+      summary: "Cancelled",
+      detail: "Deletion cancelled",
       life: 3000,
     });
   };  
@@ -130,7 +130,7 @@ const ProductListPage = () => {
 
   const header = (
     <div className="table-header">
-      <h5 className="mx-0 my-1">Gestión de Productos</h5>
+      <h5 className="mx-0 my-1">Product Management</h5>
       <span
         className="p-input-icon-left"
         style={{ marginTop: "10px", width: "100%" }}
@@ -139,7 +139,7 @@ const ProductListPage = () => {
         <InputText
           type="search"
           onInput={(e) => setGlobalFilter(e.target.value)}
-          placeholder="Buscar..."
+          placeholder="Search..."
           style={{ width: "80%", marginLeft: "30px" }}
         />
       </span>
@@ -154,7 +154,7 @@ const ProductListPage = () => {
   };
 
   if (loading) {
-    return <div>Cargando productos...</div>;
+    return <div>Loading products...</div>;
   }
 
   return (
@@ -165,12 +165,12 @@ const ProductListPage = () => {
         value={products}
         header={header}
         globalFilter={globalFilter}
-        emptyMessage="No se encontraron productos."
+        emptyMessage="No products found."
         paginator
         rows={10}
         rowsPerPageOptions={[5, 10, 25]}
         paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown"
-        currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} productos"
+        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} products"
       >
         <Column
           field="id_product"
@@ -189,7 +189,7 @@ const ProductListPage = () => {
         />
         <Column
           field="product_name"
-          header="Nombre del Producto"
+          header="Product Name"
           sortable
           style={{
             maxWidth: "90px",
@@ -204,7 +204,7 @@ const ProductListPage = () => {
         />
         <Column
           field="price"
-          header="Precio"
+          header="Price"
           body={priceBodyTemplate}
           sortable
           style={{
@@ -220,7 +220,7 @@ const ProductListPage = () => {
         />
         <Column
           field="description"
-          header="Descripción"
+          header="Description"
           style={{
             maxWidth: "120px",
             overflow: "hidden",
@@ -234,7 +234,7 @@ const ProductListPage = () => {
         />
         <Column
           field="type_name"
-          header="Tipo"
+          header="Type"
           sortable
           style={{
             maxWidth: "80px",
@@ -247,7 +247,7 @@ const ProductListPage = () => {
             textOverflow: "ellipsis",
           }}
         />
-        <Column body={actionBodyTemplate} header="Acciones" />
+        <Column body={actionBodyTemplate} header="Actions" />
       </DataTable>
       <ProductEditDialog
         visible={editDialogVisible}

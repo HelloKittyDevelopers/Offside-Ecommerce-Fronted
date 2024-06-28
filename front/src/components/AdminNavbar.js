@@ -21,13 +21,13 @@ function AdminNavbar({ isExpanded, setIsExpanded }) {
       {isExpanded && (
         <>
           <LinkContainer to="/admin/products" onClick={collapseNavbar}>
-            <Nav.Link><FaBox /> <span className="ms-3">Productos</span></Nav.Link>
+            <Nav.Link><FaBox /> <span className="ms-3">Products</span></Nav.Link>
           </LinkContainer>
           <LinkContainer to="/admin/users" onClick={collapseNavbar}>
-            <Nav.Link><FaUsers /> <span className="ms-3">Usuarios</span></Nav.Link>
+            <Nav.Link><FaUsers /> <span className="ms-3">Users</span></Nav.Link>
           </LinkContainer>
           <LinkContainer to="/admin/orders" onClick={collapseNavbar}>
-            <Nav.Link><FaClipboardList /> <span className="ms-3">Órdenes</span></Nav.Link>
+            <Nav.Link><FaClipboardList /> <span className="ms-3">Orders</span></Nav.Link>
           </LinkContainer>
           <LinkContainer to="/admin/types" onClick={collapseNavbar}>
             <Nav.Link><FaTags /> <span className="ms-3">Types</span></Nav.Link>
@@ -39,7 +39,7 @@ function AdminNavbar({ isExpanded, setIsExpanded }) {
             <Nav.Link><FaRuler /> <span className="ms-3">Sizes</span></Nav.Link>
           </LinkContainer>
           <LinkContainer to="/admin/" onClick={collapseNavbar}>
-            <Nav.Link><FaChartBar /> <span className="ms-3">Reportes</span></Nav.Link>
+            <Nav.Link><FaChartBar /> <span className="ms-3">Reports</span></Nav.Link>
           </LinkContainer>
         </>
       )}

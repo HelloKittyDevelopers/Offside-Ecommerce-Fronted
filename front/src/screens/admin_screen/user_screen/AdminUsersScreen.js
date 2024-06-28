@@ -29,16 +29,16 @@ const AdminUsersScreen = () => {
   };
 
   return (
-    <Panel header="Gestión de Usuarios" style={{ width: '60%', margin: '20px auto', height: '30%' }}>
+    <Panel header="User Management" style={{ width: '60%', margin: '20px auto', height: '30%' }}>
       <div className="button-container">
         <Button
-          label="Añadir Usuario"
+          label="Add User"
           icon="pi pi-plus"
           className="p-button-rounded p-button-text custom-button"
           onClick={showDialog}
         />
         <Button
-          label="Ver Usuarios"
+          label="Users List"
           icon="pi pi-list"
           className="p-button-rounded p-button-text custom-button"
           onClick={() => navigate('/admin/products/list')}

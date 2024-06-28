@@ -29,16 +29,16 @@ const AdminProductsScreen = () => {
   };
 
   return (
-    <Panel header="Gestión de Productos" style={{ width: '60%', margin: '20px auto', height: '30%' }}>
+    <Panel header="Product Management" style={{ width: '60%', margin: '20px auto', height: '30%' }}>
       <div className="button-container">
         <Button
-          label="Añadir Producto"
+          label="Add Product"
           icon="pi pi-plus"
           className="p-button-rounded p-button-text custom-button"
           onClick={showDialog}
         />
         <Button
-          label="Ver Productos"
+          label="Products List"
           icon="pi pi-list"
           className="p-button-rounded p-button-text custom-button"
           onClick={() => navigate('/admin/products/list')}

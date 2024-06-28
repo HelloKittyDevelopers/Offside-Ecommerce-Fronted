@@ -114,12 +114,12 @@ const ProductEditDialog = ({ visible, onHide, showToast, product }) => {
 
     saveOrUpdate
       .then(() => {
-        showToast("success", "Éxito", "Producto guardado exitosamente");
+        showToast("success", "Success", "Product saved successfully");
         onHide();
       })
       .catch((error) => {
         console.error("Error saving product:", error);
-        showToast("error", "Error", "No se pudo guardar el producto");
+        showToast("error", "Error", "Could not save the product");
       });
   };
 
@@ -147,13 +147,13 @@ const ProductEditDialog = ({ visible, onHide, showToast, product }) => {
     <Dialog
       visible={visible}
       style={{ width: "50vw" }}
-      header="Editar Producto"
+      header="Edit Product"
       modal
       className="p-fluid"
       onHide={onHide}
     >
       <div className="p-field">
-        <label htmlFor="product_name">Nombre del Producto</label>
+        <label htmlFor="product_name">Product Name</label>
         <InputText
           id="product_name"
           value={productState.product_name}
@@ -163,7 +163,7 @@ const ProductEditDialog = ({ visible, onHide, showToast, product }) => {
         />
       </div>
       <div className="p-field">
-        <label htmlFor="price">Precio</label>
+        <label htmlFor="price">Price</label>
         <InputNumber
           id="price"
           value={productState.price}
@@ -177,7 +177,7 @@ const ProductEditDialog = ({ visible, onHide, showToast, product }) => {
         />
       </div>
       <div className="p-field">
-        <label htmlFor="description">Descripción</label>
+        <label htmlFor="description">Description</label>
         <InputTextarea
           id="description"
           value={productState.description}
@@ -187,7 +187,7 @@ const ProductEditDialog = ({ visible, onHide, showToast, product }) => {
         />
       </div>
       <div className="p-field">
-        <label htmlFor="type_category">Tipo</label>
+        <label htmlFor="type_category">Type</label>
         <Dropdown
           id="type_category"
           value={productState.type_category}
@@ -196,13 +196,13 @@ const ProductEditDialog = ({ visible, onHide, showToast, product }) => {
             value: type.id_type,
           }))}
           onChange={(e) => handleDropdownChange(e, "type_category")}
-          placeholder="Seleccione un Tipo"
+          placeholder="Select a Type"
           optionLabel="label"
           required
         />
       </div>
       <div className="p-field">
-        <label htmlFor="categories">Categorías</label>
+        <label htmlFor="categories">Categories</label>
         <MultiSelect
           id="categories"
           value={productState.categories}
@@ -211,13 +211,13 @@ const ProductEditDialog = ({ visible, onHide, showToast, product }) => {
             value: category.id_category,
           }))}
           onChange={(e) => handleDropdownChange(e, "categories")}
-          placeholder="Seleccione Categorías"
+          placeholder="Select Categories"
           display="chip"
           required
         />
       </div>
       <div className="p-field">
-          <label htmlFor="images">Imágenes</label>
+          <label htmlFor="images">Images</label>
           <FileUpload
             name="images"
             multiple
@@ -226,7 +226,7 @@ const ProductEditDialog = ({ visible, onHide, showToast, product }) => {
             onUpload={handleImageUpload}
             emptyTemplate={
               <p className="p-m-0">
-                Arrastra y suelta imágenes aquí para subirlas.
+                Drag and drop images here to upload.
               </p>
             }
             className="black-file-upload"
@@ -234,15 +234,15 @@ const ProductEditDialog = ({ visible, onHide, showToast, product }) => {
         </div>
       <div className="p-field">
         <Button
-          label="Guardar"
+          label="Save"
           icon="pi pi-check"
           onClick={saveProduct}
           style={{
-            backgroundColor: "black", // Set background color to black
-            color: "white", // Adjust text color for better contrast
-            padding: "10px 20px", // Optional padding for spacing
-            border: "none", // Remove border if desired
-            borderRadius: "4px", // Optional rounded corners
+            backgroundColor: "black",
+            color: "white",
+            padding: "10px 20px",
+            border: "none",
+            borderRadius: "4px",
             marginTop: "30px",
           }}
         />
