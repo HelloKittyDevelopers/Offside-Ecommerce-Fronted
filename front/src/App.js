@@ -22,6 +22,8 @@ function App() {
             <Route path="/product/:id_product/" element={<ProductScreen />} />
             <Route path="/type/:type/" element={<ProductListingScreen />} />
             <Route path="/" element={<Navigate to="/home/" />} />
+            <Route path="/login" element={<LoginScreen />} />
+            <Route path="/users/register/" element={<RegisterScreen />} exact />
             <Route path="/cart" element={<CartScreen />} exact/>
           </Routes>
         </Container>

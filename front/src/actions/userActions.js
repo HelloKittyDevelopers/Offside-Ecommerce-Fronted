@@ -10,26 +10,37 @@ import {
     USER_REGISTER_FAIL,
 
 } from '../constants/usersConstants';
-import UserService from '../service/UserService';
+import axios from 'axios';
 
 export const login = (username, password) => async (dispatch) => {
     try {
-        dispatch({
-            type: USER_LOGIN_REQUEST
-        });
+        dispatch({ type: USER_LOGIN_REQUEST });
 
-        const data = await UserService.login(username, password);
+        const config = {
+            headers : { 
+                'Content-type' : 'application/json'
+            }
+        }
+
+        const { data } = await axios.post(
+            'http://127.0.0.1:8000/users/login/', 
+            {'username': username, 'password' : password },
+            config
+        )
 
         dispatch({
             type: USER_LOGIN_SUCCESS,
             payload: data
         });
 
+        // Puedes guardar el token en el localStorage si es necesario
         localStorage.setItem('userInfo', JSON.stringify(data));
     } catch (error) {
         dispatch({
             type: USER_LOGIN_FAIL,
-            payload: error.response && error.response.data.message ? error.response.data.message : error.message,
+            payload: error.response && error.response.data.message
+                ? error.response.data.message
+                : error.message,
         });
     }
 };
@@ -40,12 +51,21 @@ export const logout = () => (dispatch) => {
 };
 
 
-export const register = (username, password, email) => async (dispatch) => {
+export const register = (first_name, last_name, email, username, password) => async (dispatch) => {
     try {
         dispatch({ type: USER_REGISTER_REQUEST });
 
-        const user = { username, password, email };
-        const data = await UserService.register(user);
+        const config = {
+            headers: {
+                'Content-type': 'application/json'
+            }
+        }
+
+        const { data } = await axios.post(
+            'http://127.0.0.1:8000/users/register/',
+            { first_name, last_name, email, username, password },
+            config
+        )
 
         dispatch({
             type: USER_REGISTER_SUCCESS,
@@ -56,9 +76,14 @@ export const register = (username, password, email) => async (dispatch) => {
             type: USER_LOGIN_SUCCESS,
             payload: data
         });
+        
+        // Dispatch login action after successful registration
+        dispatch(login(username, password));
 
-        // Puedes guardar el token en el localStorage si es necesario
         localStorage.setItem('userInfo', JSON.stringify(data));
+
+        dispatch(login(username, password));
+
     } catch (error) {
         dispatch({
             type: USER_REGISTER_FAIL,

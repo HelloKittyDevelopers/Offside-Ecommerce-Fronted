@@ -1,27 +1,29 @@
 import { configureStore } from '@reduxjs/toolkit';
-import {productReducer} from './reducers/productReducers';
-import {userLoginReducer, userRe, userRegisterReducer } from './reducers/userReducers'
-import {productListReducer} from './reducers/productReducers'; // Asegúrate de que este sea el nombre correcto del reducer
+import { productReducer } from './reducers/productReducers';
+import { userLoginReducer, userRegisterReducer } from './reducers/userReducers';
+import { productListReducer } from './reducers/productReducers'; // Asegúrate de que este sea el nombre correcto del reducer
 import productDetailsReducer from './reducers/productDetailReducer';
 import { cartReducer } from './reducers/cartReducer';
-import {productListingReducer} from './reducers/ProductListingReducer';
+import { productListingReducer } from './reducers/ProductListingReducer';
 
-const cartItemsFromStorage = localStorage.getItem('cartItems')
-    ? JSON.parse(localStorage.getItem('cartItems'))
-    : [];
+const getLocalStorageItem = (key, defaultValue) => {
+    const localStorageValue = localStorage.getItem(key);
+    if (localStorageValue && localStorageValue !== 'undefined') {
+        return JSON.parse(localStorageValue);
+    }
+    return defaultValue;
+};
 
-const userInfoFromStorage = localStorage.getItem('userInfo') 
-? JSON.parse(localStorage.getItem('userInfo')) 
-: null
+const cartItemsFromStorage = getLocalStorageItem('cartItems', []);
+const userInfoFromStorage = getLocalStorageItem('userInfo', null);
 
-    
 const preloadedState = {
     cart: {
         cartItems: cartItemsFromStorage,
     },
     userLogin: {
-      userInfo: userInfoFromStorage
-    }
+        userInfo: userInfoFromStorage
+    },
 };
 
 const store = configureStore({
