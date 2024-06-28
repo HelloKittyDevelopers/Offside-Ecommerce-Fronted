@@ -42,7 +42,7 @@ class ProductService {
       throw error;
     }
   }
-  
+
   async save(product) {
     const formData = new FormData();
     formData.append("product_name", product.product_name);
@@ -52,6 +52,8 @@ class ProductService {
     product.categories.forEach((category) =>
       formData.append("categories", category.id_category)
     );
+    
+    // Agregar las imágenes al FormData
     product.images.forEach((image) => 
       formData.append('images', image)
     );
@@ -67,9 +69,9 @@ class ProductService {
       return response.data;
     } catch (error) {
       console.error('Error in ProductService save:', error);
-      console.error('Error data:', error.response.data);
-      console.error('Error status:', error.response.status);
-      console.error('Error headers:', error.response.headers);
+      console.error('Error data:', error.response?.data);
+      console.error('Error status:', error.response?.status);
+      console.error('Error headers:', error.response?.headers);
       throw error;
     }
   }
@@ -121,6 +123,31 @@ class ProductService {
       throw error;
     }
   }
+
+
+  async uploadImages(productId, images) {
+    if (!productId) {
+      throw new Error('Product ID is required to upload images');
+    }
+
+    const formData = new FormData();
+    images.forEach((image) => {
+      formData.append('images', image);
+    });
+
+    try {
+      const response = await axios.post(`${this.baseUrl}${productId}/images/`, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
+      return response.data;
+    } catch (error) {
+      console.error('Error uploading images:', error);
+      throw error;
+    }
+  }
+
 }
 
 export default new ProductService();

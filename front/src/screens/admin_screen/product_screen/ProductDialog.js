@@ -50,6 +50,7 @@ const ProductDialog = ({ visible, onHide, showToast }) => {
   const handleImageUpload = (e) => {
     const uploadedImages = e.files;
     setProduct({ ...product, images: [...product.images, ...uploadedImages] });
+    console.log(product)
   };
 
   const addNewType = () => {
@@ -85,26 +86,29 @@ const ProductDialog = ({ visible, onHide, showToast }) => {
     }
   };
 
-  const saveProduct = () => {
-    ProductService.save(product)
-      .then(() => {
-        showToast("success", "Success", "Product added");
-        onHide();
-        setProduct({
-          product_name: "",
-          price: null,
-          description: "",
-          type_category: null,
-          categories: [],
-          images: [],
-        });
-      })
-      .catch((error) => {
-        console.error("Error saving product:", error);
-        showToast("error", "Error", "Could not add product");
+  const saveProduct = async () => {
+    try {
+      const savedProduct = await ProductService.save(product);
+      console.log(savedProduct)
+      if (product.images.length > 0) {
+        await ProductService.uploadImages(savedProduct.id_product, product.images);
+      }
+      showToast("success", "Success", "Product added");
+      onHide();
+      setProduct({
+        product_name: "",
+        price: null,
+        description: "",
+        type_category: null,
+        categories: [],
+        images: [],
       });
+    } catch (error) {
+      console.error("Error saving product:", error);
+      showToast("error", "Error", "Could not add product");
+    }
   };
-
+  
   return (
     <Dialog header="Add Product" visible={visible} onHide={onHide}>
       <div className="p-fluid">
