@@ -107,21 +107,22 @@ const ProductEditDialog = ({ visible, onHide, showToast, product }) => {
     setProductState({ ...product, images: [...product.images, ...uploadedImages] });
   };
 
-  const saveProduct = () => {
+  const saveProduct = async () => {
     const saveOrUpdate = productState.id_product
       ? ProductService.update(productState.id_product, productState)
       : ProductService.save(productState);
-
-    saveOrUpdate
-      .then(() => {
-        showToast("success", "Success", "Product saved successfully");
-        onHide();
-      })
-      .catch((error) => {
-        console.error("Error saving product:", error);
-        showToast("error", "Error", "Could not save the product");
-      });
-  };
+  
+    try {
+      await saveOrUpdate;
+      showToast("success", "Success", "Product saved successfully");
+      onHide(); // Hide the dialog after a delay
+      await new Promise((resolve) => setTimeout(resolve, 1000)); // Wait 1 seconds
+      window.location.reload(); // Refresh the page
+    } catch (error) {
+      console.error("Error saving product:", error);
+      showToast("error", "Error", "Could not save the product");
+    }
+  };  
 
   const renderImagePreviews = () => {
     return productState.images.map((image, index) => (
