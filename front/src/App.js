@@ -54,8 +54,6 @@ function App() {
                           <Route path="types/" element={<TypeScreen />} />
                           <Route path="categories/" element={<CategoryScreen />} />
                           <Route path="sizes/" element={<SizeScreen />} />
-                          <Route path="/login" element={<LoginScreen />} />
-                          <Route path="/users/register/" element={<RegisterScreen />} exact />
                           <Route path="/" element={<AdminScreen />} />
                         </Routes>
                       </Container>
@@ -83,6 +81,8 @@ function App() {
                       <Route path="/shipping" element={<ShippingScreen />} />
                       <Route path="/payment" element={<PaymentScreen />} />
                       <Route path="/placeorder" element={<PlaceOrderScreen />} />
+                      <Route path="/login" element={<LoginScreen />} />
+                      <Route path="/users/register/" element={<RegisterScreen />} exact />
                     </Routes>
                   </Container>
                 </main>
