@@ -7,6 +7,8 @@ import AdminNavbar from './components/AdminNavbar';
 import HomeScreen from './screens/HomeScreen';
 import ProductScreen from './screens/ProductScreen';
 import CartScreen from './screens/CartScreen';
+import LoginScreen from './screens/LoginScreen';
+import RegisterScreen from './screens/RegisterScreen';
 import ProductListingScreen from './screens/ProductListingScreen';
 import AdminProductsScreen from './screens/admin_screen/product_screen/AdminProductsScreen';
 import AdminScreen from './screens/admin_screen/AdminScreen';
@@ -52,6 +54,8 @@ function App() {
                           <Route path="types/" element={<TypeScreen />} />
                           <Route path="categories/" element={<CategoryScreen />} />
                           <Route path="sizes/" element={<SizeScreen />} />
+                          <Route path="/login" element={<LoginScreen />} />
+                          <Route path="/users/register/" element={<RegisterScreen />} exact />
                           <Route path="/" element={<AdminScreen />} />
                         </Routes>
                       </Container>

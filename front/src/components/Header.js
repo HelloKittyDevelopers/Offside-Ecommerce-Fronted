@@ -5,14 +5,27 @@ import Navbar from 'react-bootstrap/Navbar';
 import { LinkContainer } from 'react-router-bootstrap';
 import logo from '../assets/image.png'
 import Catalog from './Catalog';
+import NavDropdown from 'react-bootstrap/NavDropdown';
+import { useDispatch, useSelector } from 'react-redux';
+import { logout } from '../actions/userActions';
+import logo from '../assets/image.png';
 
 function Header() {
+    const userLogin = useSelector((state) => state.userLogin);
+    const { userInfo } = userLogin;
+
+    const dispatch = useDispatch();
+
+    const logoutHandler = () => {
+        dispatch(logout());
+    };
+
     return (
         <header>
             <br />
             <Navbar bg="light" data-bs-theme="light" collapseOnSelect>
                 <Container>
-                    <LinkContainer to='/'>
+                    <LinkContainer to="/">
                         <Navbar.Brand>
                             <img
                                 src={logo}
@@ -29,12 +42,30 @@ function Header() {
                         </LinkContainer>
                     </Nav>
                     <Nav className="ml-auto">
-                        <LinkContainer to="/Login">
-                            <Nav.Link><i className='fas fa-user'></i> Login</Nav.Link>
+                        <LinkContainer to="/cart">
+                            <Nav.Link>
+                                <i className="fas fa-shopping-cart"></i> Cart
+                            </Nav.Link>
                         </LinkContainer>
-                        <LinkContainer to="/Cart">
-                            <Nav.Link><i className='fas fa-shopping-cart'></i> Cart</Nav.Link>
-                        </LinkContainer>
+
+                        {userInfo ? (
+                            <NavDropdown title={userInfo.first_name} id="username">
+                                <LinkContainer to="/profile">
+                                    <NavDropdown.Item>Profile</NavDropdown.Item>
+                                </LinkContainer>
+                                <NavDropdown.Item onClick={logoutHandler}>
+                                    Logout
+                                </NavDropdown.Item>
+                            </NavDropdown>
+                        ) : (
+                            <>
+                                <LinkContainer to="/login">
+                                    <Nav.Link>
+                                        <i className="fas fa-user"></i> Login
+                                    </Nav.Link>
+                                </LinkContainer>
+                            </>
+                        )}
                     </Nav>
                 </Container>
             </Navbar>
@@ -42,4 +73,4 @@ function Header() {
     );
 }
 
-export default Header
+export default Header;
