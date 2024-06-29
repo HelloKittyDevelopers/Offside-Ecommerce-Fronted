@@ -1,11 +1,11 @@
 import React from 'react';
-import ReactDOM from 'react-dom/client'; // Importación correcta para React 18
+import ReactDOM from 'react-dom/client'; 
 import './index.css';
 import App from './App';
 import './bootstrap.min.css';
 import { Provider } from 'react-redux';
 import store from './store';
-import { BrowserRouter } from 'react-router-dom'; // Importar BrowserRouter
+import { BrowserRouter } from 'react-router-dom'; 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

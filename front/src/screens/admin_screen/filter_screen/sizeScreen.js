@@ -10,7 +10,7 @@ import SizeService from '../../../service/SizeService';
 import 'primereact/resources/themes/saga-blue/theme.css';
 import 'primereact/resources/primereact.min.css';
 import 'primeicons/primeicons.css';
-import '../AdminScreen.css'; // Update with your CSS path
+import '../AdminScreen.css'; 
 
 const SizeScreen = () => {
   const [sizes, setSizes] = useState([]);

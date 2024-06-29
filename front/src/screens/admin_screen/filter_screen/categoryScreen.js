@@ -5,18 +5,18 @@ import { Button } from 'primereact/button';
 import { InputText } from 'primereact/inputtext';
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
-import { Dialog } from 'primereact/dialog'; // Import Dialog component
+import { Dialog } from 'primereact/dialog'; 
 import CategoryService from '../../../service/CategoryService';
 import 'primereact/resources/themes/saga-blue/theme.css';
 import 'primereact/resources/primereact.min.css';
 import 'primeicons/primeicons.css';
-import '../AdminScreen.css'; // Update with your CSS path
+import '../AdminScreen.css'; 
 
 const CategoryScreen = () => {
   const [categories, setCategories] = useState([]);
   const [newCategory, setNewCategory] = useState('');
-  const [deleteCategoryId, setDeleteCategoryId] = useState(null); // State to store category ID to delete
-  const [deleteConfirmationVisible, setDeleteConfirmationVisible] = useState(false); // State to control dialog visibility
+  const [deleteCategoryId, setDeleteCategoryId] = useState(null); 
+  const [deleteConfirmationVisible, setDeleteConfirmationVisible] = useState(false); 
   const toast = useRef(null);
 
   useEffect(() => {
@@ -40,7 +40,7 @@ const CategoryScreen = () => {
 
   const addNewCategory = () => {
     if (newCategory.trim()) {
-      CategoryService.save({ category: newCategory }) // Ensure 'category' matches your API structure
+      CategoryService.save({ category: newCategory }) 
         .then(response => {
           setCategories([...categories, response]);
           setNewCategory('');

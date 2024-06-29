@@ -31,7 +31,6 @@ const OrderDetailScreen = () => {
         const orderItemsData = await OrderItemService.getOrderItemsByOrderId(id_order);
         setOrderItems(orderItemsData);
 
-        // Fetch product details for each order item
         const productPromises = orderItemsData.map(item => ProductService.getProductById(item.product));
         const productsData = await Promise.all(productPromises);
         setProducts(productsData);

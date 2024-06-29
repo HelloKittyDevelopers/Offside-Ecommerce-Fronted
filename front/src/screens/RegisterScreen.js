@@ -1,5 +1,3 @@
-// RegisterScreen.js
-
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Form, Button, Row, Col } from 'react-bootstrap';
@@ -18,7 +16,7 @@ function RegisterScreen() {
     const [confirmPassword, setConfirmPassword] = useState('');
     const [message, setMessage] = useState('');
 
-    const navigate = useNavigate(); // Obtener función de navegación
+    const navigate = useNavigate(); 
     const dispatch = useDispatch();
 
     const redirect = '/home/';
@@ -40,7 +38,7 @@ function RegisterScreen() {
             try {
                 dispatch(register(firstName, lastName, email, username, password));
             } catch (error) {
-                setMessage(error.message); // Mostrar mensaje de error
+                setMessage(error.message); 
             }
         }
     };

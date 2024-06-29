@@ -65,7 +65,7 @@ const OrdersScreen = () => {
         header="Existing Orders"
         emptyMessage="No orders found"
         onRowClick={(e) => navigateToOrderDetail(e.data.id_order)}
-        className="datatable-hover-effect" // Apply hover effect class here
+        className="datatable-hover-effect" 
       >
         <Column field="id_order" header="Order ID" sortable />
         <Column field="date_order" header="Date" sortable />

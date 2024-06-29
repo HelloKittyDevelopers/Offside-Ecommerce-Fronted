@@ -42,13 +42,13 @@ function ProductScreen() {
     };
 
     const addToCartHandler = () => {
-        const images = product.images// Obtener URLs de las imágenes
+        const images = product.images
         dispatch(addToCart(id_product, Number(qty), size, countInStock, images));
         setShowConfirmation(true);
         setTimeout(() => {
             setShowConfirmation(false);
             goToCartHandler();
-        }, 1500); // Mostrar el mensaje durante 1.5 segundos antes de redirigir
+        }, 1500); 
     };
 
     if (loading) {

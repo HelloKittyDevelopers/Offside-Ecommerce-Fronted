@@ -10,7 +10,7 @@ const Product = ({ product }) => {
         {product.images && product.images.length > 0 ? (
           <Card.Img src={product.images[0].image} variant='top' />
         ) : (
-          <Card.Img src='/placeholder-image.jpg' variant='top' /> // Replace with your placeholder image
+          <Card.Img src='/placeholder-image.jpg' variant='top' /> // Placeholder image
         )}
       </Link>
 

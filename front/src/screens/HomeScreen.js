@@ -6,10 +6,10 @@ import Message from '../components/Message';
 import Vid from '../components/Vid';
 import { useDispatch, useSelector } from 'react-redux';
 import { listProducts } from '../actions/productActions';
-import image1 from '../assets/kaka.png'; // Adjust the path to your image file
+import image1 from '../assets/kaka.png'; 
 import image2 from '../assets/always.png';
 import your from '../assets/your.png';
-import './HomeScreen.css'; // Import the CSS file
+import './HomeScreen.css'; 
 
 function HomeScreen() {
   const dispatch = useDispatch();

@@ -23,13 +23,13 @@ const ProductListPage = () => {
     setLoading(true);
     try {
       const productsData = await ProductService.getAll();
-      const allCategories = await CategoryService.getAll(); // Get all categories
+      const allCategories = await CategoryService.getAll(); 
 
       const productsWithDetails = await Promise.all(
         productsData.map(async (product) => {
           const type = await TypeService.getTypeById(product.type_category);
 
-          // Check if product.categories exists and is an array
+          
           const productCategories = Array.isArray(product.categories)
             ? allCategories.filter((cat) =>
                 product.categories.includes(cat.id_category)

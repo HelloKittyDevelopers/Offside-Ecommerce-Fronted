@@ -18,7 +18,7 @@ body, html {
   
   .card-img-top {
     width: 100%;
-    height: 300px; /* Adjust this height as needed */
+    height: 300px; 
     object-fit: contain; /* Ensure the image covers the assigned area without distortion */
     display: block; /* Ensure the image behaves as a block */
   }
@@ -32,8 +32,8 @@ body, html {
   }
   
   .btn-rounded {
-    border-radius: 50px; /* Adjust the value as needed */
-    padding: 10px 20px; /* Adjust the value as needed */
+    border-radius: 50px; 
+    padding: 10px 20px; 
   }
   
   .latest-products-heading {

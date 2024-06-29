@@ -1,7 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { productReducer } from './reducers/productReducers';
 import { userLoginReducer, userRegisterReducer } from './reducers/userReducers';
-import { productListReducer } from './reducers/productReducers'; // Asegúrate de que este sea el nombre correcto del reducer
+import { productListReducer } from './reducers/productReducers'; 
 import productDetailsReducer from './reducers/productDetailReducer';
 import { cartReducer } from './reducers/cartReducer';
 import { productListingReducer } from './reducers/ProductListingReducer';

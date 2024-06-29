@@ -4,14 +4,13 @@ import ProductService from '../service/ProductService';
 export const addToCart = (id, qty, size) => async (dispatch, getState) => {
     try {
         const data = await ProductService.getProductById(id);
-        console.log(data); // Verifica que estás obteniendo los datos correctos
 
         dispatch({
             type: CART_ADD_ITEM,
             payload: {
                 id_product: data.id_product,
                 name: data.product_name,
-                images: data.images || [], // Asegúrate de que las imágenes están incluidas
+                images: data.images || [], 
                 price: data.price,
                 countInStock: data.countInStock,
                 qty,

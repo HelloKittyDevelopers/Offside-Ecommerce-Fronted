@@ -17,7 +17,7 @@ function ProductListingScreen() {
     const [maxPrice, setMaxPrice] = useState('');
     const [size, setSize] = useState('');
     const [pageNumber, setPageNumber] = useState(1);
-    const productsPerPage = 8; // Number of products per page
+    const productsPerPage = 8; 
 
     const productListing = useSelector(state => state.productListing);
     const { error, loading, categories, products, sizes} = productListing;
@@ -51,7 +51,7 @@ function ProductListingScreen() {
 
     const calculateTotalPages = (products, productsPerPage) => {
         if (!products || typeof products.length === 'undefined') {
-            return 1; // Return 0 if products or products.length is undefined
+            return 1; 
         }
         else{
           return Math.ceil(products.length / productsPerPage);  
@@ -60,7 +60,7 @@ function ProductListingScreen() {
 
     const totalPages = calculateTotalPages(products, productsPerPage);
 
-    //Pagination Logic
+   
     const paginationButtons = [];
     for (let i = 1; i <= totalPages; i++) {
         paginationButtons.push(
@@ -74,7 +74,7 @@ function ProductListingScreen() {
         );
     }
 
-    // Divide products into sets based on productsPerPage
+    
     const dividedProducts = [];
     if(!products || typeof products.length === 'undefined'){
         return 0
@@ -85,7 +85,7 @@ function ProductListingScreen() {
     }
     
 
-    // Select current products to render based on pageNumber
+    
     const currentProducts = dividedProducts[pageNumber - 1] || [];
 
 
@@ -144,7 +144,7 @@ function ProductListingScreen() {
                             </Col>
                         ))}
                     </Row>
-                    {/* Pagination */}
+                    
                     <Row className="justify-content-center mt-4">
                         <Col className="text-left" xs="4">
                             <Button
