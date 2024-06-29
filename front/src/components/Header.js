@@ -1,26 +1,75 @@
-import React from 'react'
+import React from 'react';
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
+import { LinkContainer } from 'react-router-bootstrap';
+import logo from '../assets/image.png'
+import Catalog from './Catalog';
+import NavDropdown from 'react-bootstrap/NavDropdown';
+import { useDispatch, useSelector } from 'react-redux';
+import { logout } from '../actions/userActions';
+
 function Header() {
+    const userLogin = useSelector((state) => state.userLogin);
+    const { userInfo } = userLogin;
+
+    const dispatch = useDispatch();
+
+    const logoutHandler = () => {
+        dispatch(logout());
+    };
+
     return (
-      <header>
-        <br />
-        <Navbar bg="light" data-bs-theme="light" collapseOnSelect>
-          <Container>
-            <Navbar.Brand href="#home">Offside</Navbar.Brand>
-            <Nav className="me-auto">
-              <Nav.Link href="#retros">Retro Kits</Nav.Link>
-              <Nav.Link href="#FAQ">FAQ</Nav.Link>
-            </Nav>
-            <Nav className="ml-auto">
-              <Nav.Link href="#Login"><i className='fas fa-user'></i> Login</Nav.Link>
-              <Nav.Link href="#Cart"><i className='fas fa-shopping-cart'></i> Cart</Nav.Link>
-            </Nav>
-          </Container>
-        </Navbar>
-      </header>
+        <header>
+            <br />
+            <Navbar bg="light" data-bs-theme="light" collapseOnSelect>
+                <Container>
+                    <LinkContainer to="/">
+                        <Navbar.Brand>
+                            <img
+                                src={logo}
+                                alt="Brand Logo"
+                                height="30"
+                                className="d-inline-block align-top"
+                            />
+                        </Navbar.Brand>
+                    </LinkContainer>
+                    <Nav className="me-auto">
+                        <Catalog/>
+                        <LinkContainer to="/FAQ">
+                            <Nav.Link className='catalog-toggle'>FAQ</Nav.Link>
+                        </LinkContainer>
+                    </Nav>
+                    <Nav className="ml-auto">
+                        <LinkContainer to="/cart">
+                            <Nav.Link>
+                                <i className="fas fa-shopping-cart"></i> Cart
+                            </Nav.Link>
+                        </LinkContainer>
+
+                        {userInfo ? (
+                            <NavDropdown title={userInfo.first_name} id="username">
+                                <LinkContainer to="/profile">
+                                    <NavDropdown.Item>Profile</NavDropdown.Item>
+                                </LinkContainer>
+                                <NavDropdown.Item onClick={logoutHandler}>
+                                    Logout
+                                </NavDropdown.Item>
+                            </NavDropdown>
+                        ) : (
+                            <>
+                                <LinkContainer to="/login">
+                                    <Nav.Link>
+                                        <i className="fas fa-user"></i> Login
+                                    </Nav.Link>
+                                </LinkContainer>
+                            </>
+                        )}
+                    </Nav>
+                </Container>
+            </Navbar>
+        </header>
     );
-  }
-  
-  export default Header;
+}
+
+export default Header;

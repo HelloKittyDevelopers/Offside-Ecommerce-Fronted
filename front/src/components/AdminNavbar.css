@@ -1,0 +1,40 @@
+.admin-sidebar {
+  transition: all 0.3s;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.admin-sidebar .nav-link {
+  padding: 1rem;
+  font-size: 1.1rem;
+  transition: background-color 0.2s;
+  display: flex;
+  align-items: center;
+}
+
+.admin-sidebar .nav-link:hover {
+  background-color: #f8f9fa;
+}
+
+.admin-sidebar .btn {
+  width: 100%;
+  padding: 1rem;
+  text-align: left;
+}
+
+.admin-sidebar .btn svg {
+  font-size: 1.5rem;
+}
+
+.admin-sidebar-collapsed {
+  width: 60px;
+}
+
+.admin-sidebar-expanded {
+  width: 250px;
+}
+
+.admin-sidebar .nav-link svg {
+  min-width: 1.5rem;
+}

@@ -1,0 +1,39 @@
+.table-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap; /* Permite que los elementos se ajusten en varias líneas si es necesario */
+  }
+  
+  .table-header h5 {
+    margin: 0;
+  }
+  
+  .table-header .p-input-icon-left {
+    width: 100%;
+    max-width: 400px;
+    margin-top: 10px;
+    flex-grow: 1; /* Permite que el input de búsqueda ocupe el espacio disponible */
+  }
+  
+  .admin-content-expanded {
+    padding-left: 2rem;
+  }
+  
+  .admin-content-collapsed {
+    padding-left: 1rem;
+  }
+  
+  /* Ajustar márgenes y padding para evitar superposición */
+  .container-fluid {
+    padding: 20px;
+  }
+  
+  .p-datatable {
+    margin-top: 20px; /* Añadir margen superior para evitar superposición */
+  }
+  
+  /* Asegurarse de que la tabla ocupe el espacio disponible */
+  .p-datatable .p-datatable-tablewrapper {
+    overflow-x: auto; /* Solo agregar scroll horizontal si es necesario */
+  }
