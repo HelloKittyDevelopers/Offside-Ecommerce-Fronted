@@ -5,6 +5,7 @@ import { productListReducer } from './reducers/productReducers';
 import productDetailsReducer from './reducers/productDetailReducer';
 import { cartReducer } from './reducers/cartReducer';
 import { productListingReducer } from './reducers/ProductListingReducer';
+import { orderCreateReducer } from './reducers/orderReducers';
 
 const getLocalStorageItem = (key, defaultValue) => {
     const localStorageValue = localStorage.getItem(key);
@@ -16,13 +17,15 @@ const getLocalStorageItem = (key, defaultValue) => {
 
 const cartItemsFromStorage = getLocalStorageItem('cartItems', []);
 const userInfoFromStorage = getLocalStorageItem('userInfo', null);
+const shippingAddressFromStorage = getLocalStorageItem('shippingAddress', {});
 
 const preloadedState = {
     cart: {
-        cartItems: cartItemsFromStorage
+        cartItems: cartItemsFromStorage,
+        shippingAddress: shippingAddressFromStorage, // Asegúrate de incluir shippingAddress aquí
     },
     userLogin: {
-        userInfo: userInfoFromStorage
+        userInfo: userInfoFromStorage,
     },
 };
 
@@ -34,6 +37,7 @@ const store = configureStore({
         userLogin: userLoginReducer,
         userRegister: userRegisterReducer,
         productListing: productListingReducer,
+        orderCreate: orderCreateReducer,
     },
     preloadedState,
     devTools: process.env.NODE_ENV !== 'production',

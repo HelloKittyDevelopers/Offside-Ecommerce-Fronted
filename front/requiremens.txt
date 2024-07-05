@@ -1,9 +1,8 @@
-npm install @craco/craco
-npm install react-router-dom
-npm install bootstrap bootstrap
-npm install react-bootstrap bootstrap
-npm install typescript
-npm install yarn
-yarn add redux react-redux redux-thunk redux-devtools-extension
-npm install react-icons
-npm install primereact primeicons
+npm install @craco/craco --legacy-peer-deps
+npm install react-router-dom --legacy-peer-deps
+npm install bootstrap bootstrap --legacy-peer-deps
+npm install react-bootstrap bootstrap --legacy-peer-deps
+npm install typescript --legacy-peer-deps
+npm install yarn --legacy-peer-deps
+npm install react-icons --legacy-peer-deps
+npm install primereact primeicons --legacy-peer-deps

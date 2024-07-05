@@ -78,7 +78,7 @@ function App() {
             	        <Route path="/" element={<Navigate to="/home/" />} />
             	        <Route path="/cart" element={<CartScreen />} exact/>
                       <Route path="/" element={<Navigate to="/home/" />} />
-                      <Route path="/shipping" element={<ShippingScreen />} />
+                      <Route path="login/shipping" element={<ShippingScreen />} />
                       <Route path="/payment" element={<PaymentScreen />} />
                       <Route path="/placeorder" element={<PlaceOrderScreen />} />
                       <Route path="/login" element={<LoginScreen />} />
