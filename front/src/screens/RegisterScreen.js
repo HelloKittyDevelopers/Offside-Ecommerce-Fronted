@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { Form, Button, Row, Col } from 'react-bootstrap';
 import Loader from '../components/Loader';
 import Message from '../components/Message';
@@ -18,37 +18,39 @@ function RegisterScreen() {
 
     const navigate = useNavigate(); 
     const dispatch = useDispatch();
+    const location = useLocation();
 
-    const redirect = '/home/';
+    const redirect = location.search ? location.search.split('=')[1] : '/';
 
     const userRegister = useSelector(state => state.userRegister);
     const { error, loading, userInfo } = userRegister;
 
     useEffect(() => {
-        if (userInfo && userInfo.username) {
-            navigate(redirect); // Redirigir a la página de inicio si el registro es exitoso
+        if (userInfo != null) {
+            setMessage('User registered successfully');
+            setTimeout(() => {
+                navigate(redirect); // Redirigir a la página de inicio si el registro es exitoso después de mostrar el mensaje
+            }, 1000); // Redirigir después de 3 segundos
         }
     }, [userInfo, navigate, redirect]);
 
-    const submitHandler = async (e) => {
+    const submitHandler = (e) => {
         e.preventDefault();
         if (password !== confirmPassword) {
             setMessage('Passwords do not match');
         } else {
-            try {
-                dispatch(register(firstName, lastName, email, username, password));
-            } catch (error) {
-                setMessage(error.message); 
-            }
+            dispatch(register(firstName, lastName, email, username, password));
         }
     };
 
     return (
         <FormContainer>
+
             <h1>Sign Up</h1>
             {message && <Message variant={error ? 'danger' : 'success'}>{message}</Message>}
             {error && <Message variant='danger'>{error}</Message>}
             {loading && <Loader />}
+
             <Form onSubmit={submitHandler}>
                 <Form.Group controlId='firstName'>
                     <Form.Label>First Name</Form.Label>
