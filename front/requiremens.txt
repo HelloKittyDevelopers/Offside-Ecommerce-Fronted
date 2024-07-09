@@ -6,3 +6,5 @@ npm install typescript --legacy-peer-deps
 npm install yarn --legacy-peer-deps
 npm install react-icons --legacy-peer-deps
 npm install primereact primeicons --legacy-peer-deps
+npm install react-google-login --legacy-peer-deps
+

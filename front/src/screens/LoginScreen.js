@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation, Link } from 'react-router-dom';
 import { Form, Button, Row, Col } from 'react-bootstrap';
-import Loader from '../components/Loader';
-import Message from '../components/Message';
 import { useDispatch, useSelector } from 'react-redux';
 import { login } from '../actions/userActions';
+import { googleSuccess, googleFailure } from '../actions/googleActions.js';
 import FormContainer from '../components/FormContainer';
+import GoogleLoginButton from '../components/GoogleLoginButton';
+import Loader from '../components/Loader';
+import Message from '../components/Message';
+import './LoginScreen.css'; // Importa el archivo CSS
 
 function LoginScreen() {
     const [username, setUsername] = useState('');
@@ -31,46 +34,60 @@ function LoginScreen() {
         dispatch(login(username, password));
     };
 
+    const handleGoogleSuccess = (response) => {
+        dispatch(googleSuccess(response));
+    };
+
+    const handleGoogleFailure = (response) => {
+        googleFailure(response);
+    };
+
     return (
         <FormContainer>
-            <h1>Sign In</h1>
-            {error && <Message variant='danger'>{error}</Message>}
-            {loading && <Loader />}
+            <div className="login-screen">
+                <h1>Login</h1>
+                <p>Please enter your Login and your Password</p>
+                {error && <Message variant='danger'>{error}</Message>}
+                {loading && <Loader />}
+                <Form onSubmit={submitHandler}>
+                    <Form.Group controlId='username' className='form-group-spacing'>
+                        <Form.Control
+                            type='text'
+                            placeholder='Username or E-mail'
+                            value={username}
+                            onChange={(e) => setUsername(e.target.value)}
+                        />
+                    </Form.Group>
 
-            <Form onSubmit={submitHandler}>
-                <Form.Group controlId='username' className='form-group-spacing'>
-                    <Form.Label>Username</Form.Label>
-                    <Form.Control
-                        type='text'
-                        placeholder='Enter username'
-                        value={username}
-                        onChange={(e) => setUsername(e.target.value)}
-                    />
-                </Form.Group>
+                    <Form.Group controlId='password' className='form-group-spacing'>
+                        <Form.Control
+                            type='password'
+                            placeholder='Password'
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                        />
+                    </Form.Group>
 
-                <Form.Group controlId='password' className='form-group-spacing'>
-                    <Form.Label>Password</Form.Label>
-                    <Form.Control
-                        type='password'
-                        placeholder='Enter password'
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                    />
-                </Form.Group>
+                    <div className="forgot-password">
+                        <Link to="/forgot-password">Forgot password?</Link>
+                    </div>
 
-                <Button type='submit' variant='primary' className='form-group-spacing'>
-                    Sign In
-                </Button>
-            </Form>
+                    <Button type='submit' variant='primary' className='form-group-spacing login-button'>
+                        Login
+                    </Button>
+                </Form>
 
-            <Row className='py-3'>
-                <Col>
-                    New Customer?{' '}
-                    <Link to={`/users/register?redirect=${redirect}`}>
-                        Register
-                    </Link>
-                </Col>
-            </Row>
+                <GoogleLoginButton onSuccess={handleGoogleSuccess} onFailure={handleGoogleFailure} className='google-login-button' />
+
+                <Row className='py-3'>
+                    <Col className="register-link">
+                        Not a member yet?{' '}
+                        <Link to={`/users/register?redirect=${redirect}`}>
+                            Register!
+                        </Link>
+                    </Col>
+                </Row>
+            </div>
         </FormContainer>
     );
 }

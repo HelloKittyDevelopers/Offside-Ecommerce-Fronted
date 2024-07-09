@@ -82,3 +82,11 @@ export const register = (firstName, lastName, email, username, password) => asyn
         });
     }
 };
+export const userLoginSuccess = (data) => (dispatch) => {
+    dispatch({
+        type: USER_LOGIN_SUCCESS,
+        payload: data,
+    });
+
+    localStorage.setItem('userInfo', JSON.stringify(data));
+};
